@@ -1,7 +1,7 @@
 <?php
-require_once ('class/Drawable.class.php');
+require_once('class/MapObject.class.php');
 
-class Ship implements IDrawable
+class Ship extends MapObject
 {
     private $_name;
     private $size;
