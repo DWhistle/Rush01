@@ -11,6 +11,11 @@ class Weapon
 	private $LongRange;
 	private $EffectZone;
 
+	public function __construct()
+	{
+		$Charge = 0;
+	}
+
 	/**
 	 * @return mixed
 	 */
@@ -89,5 +94,10 @@ class Weapon
 	public function setEffectZone($EffectZone)
 	{
 		$this->EffectZone = $EffectZone;
+	}
+
+	public function isInRange($ship)
+	{
+
 	}
 }
