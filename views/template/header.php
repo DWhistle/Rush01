@@ -1,9 +1,11 @@
 <?php
 session_start();
+$page = new Page();
+$page->add_css('ships.css');
 ?>
 <html>
 <head>
     <title>Warhammer 40000 - Awesome Battleships Battles</title>
-    <meta rel="stylesheet" href="ship.css" />
+    <?= $page->getCss();?>
 </head>
 <body>

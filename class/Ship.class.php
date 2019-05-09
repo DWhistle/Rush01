@@ -187,4 +187,14 @@ EOF;
     {
         $this->weapons = $weapons;
     }
+
+    public function getCss()
+    {
+        return "<meta rel='stylesheet' href='ship-{$this->getName()}.css'>";
+    }
+
+    public function getJs()
+    {
+        // TODO: Implement getJs() method.
+    }
 }

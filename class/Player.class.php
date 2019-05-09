@@ -65,6 +65,16 @@ EOF;
     {
         $this->active_ship = $active_ship;
     }
+
+    public function getCss()
+    {
+        // TODO: Implement getCss() method.
+    }
+
+    public function getJs()
+    {
+        // TODO: Implement getJs() method.
+    }
 }
 
 
