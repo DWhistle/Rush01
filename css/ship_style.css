@@ -1,46 +1,51 @@
+.left-ship, .right-ship {
+    display: inline-block;
+    height: auto;
+    width: 49%;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+.ship ul, .ship li {
+    list-style: none;
+}
+
 .ship-parameters  li{
     background-color: royalblue;
-    font-family: Damascus;
+    font-family: Damascus, serif;
     font-size: 35px;
-    padding-top: 2px;
-    min-width: 500px;
-    padding-bottom: 2px;
+    padding: 2px 0;
     border-bottom: 2px solid grey;
     text-align: center;
-    margin-left: 200px;
     color: white;
 }
 
-.ship{
-    float:left;
+.ship {
+    display: block;
     min-width: 300px;
+    max-width: 800px;
+    margin: auto;
     background-color: darkcyan;
     border: 10px solid lightskyblue;
-    margin-left: 520px;
 }
 .ship img{
-    height: 200px;
-    width: 200px;
-    float: left;
-    margin-top: 55px;
+    height: auto;
+    width: 100%;
 
 }
 .ship p{
-    font-family: Damascus;
+    font-family: Damascus, serif;
     font-size: 40px;
     text-align: center;
-    margin: 0;
-    padding: 0;
     color: white;
     background-color: cornflowerblue;
 
 }
 
+
 .controls {
     font-size: 40px;
     text-align: center;
     padding-top: 10px;
-    margin-top: 30px;
 
 }
 .controls button{

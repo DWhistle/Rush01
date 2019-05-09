@@ -40,12 +40,11 @@ class Ship extends MapObject
     {
         return <<<EOF
 <div class="ship">
-    
-       
-   
-   
-       <img src="/images/ships/$this->_name.png" alt="ship"/>
-       <p>Ship Info:</p>
+<p>Ship Info:</p>
+    <div class="left-ship">
+        <img src="/images/ships/$this->_name.png" alt="ship"/>
+    </div>
+    <div class="right-ship">
         <ul class="ship-parameters">
             <li class="property">Name:  $this->_name</li>
             <li class="property">Size:  {$this->getSize()[0]}, {$this->getSize()[1]}</li>
@@ -56,7 +55,7 @@ class Ship extends MapObject
             <li class="property">Shield:  $this->shield</li>
             <li class="property">Weapons:  $this->weapons</li>
         </ul>
-
+    </div>
 </div>
 <div class="controls"> 
 
