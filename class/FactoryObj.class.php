@@ -23,7 +23,7 @@ class FactoryObj
      */
     public function addObj($obj)
     {
-        if ($obj instanceof  MapObject)
+        if (is_a($obj, MapObject::class))
             $this->objects[] = $obj;
         else
             throw new Exception("{$obj->getName()} is not an MapObject");
@@ -31,8 +31,10 @@ class FactoryObj
 
     public function drawAll()
     {
+        echo "<div class='map'>";
         foreach ($this->objects as $object) {
             $object->draw();
         }
+        echo '</div>';
     }
 }
