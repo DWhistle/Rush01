@@ -3,8 +3,6 @@ require_once('class/MapObject.class.php');
 
 class Ship extends MapObject
 {
-    private $_name;
-    private $size;
     private $hull_points;
     private $PP;
     private $speed;
@@ -13,11 +11,12 @@ class Ship extends MapObject
     private $weapons;
 
 
-    public function __construct($args)
+    public function __construct($name, $x, $y, $args)
     {
-        $this->_name = $args['_name'];
+        $this->setName($name);
+        $this->setPos($x, $y);
         if (array_key_exists('size', $args))
-            $this->size = $args['size'];
+            $this->setSize($args['size'][0], $args['size'][1]);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
         if (array_key_exists('PP', $args))
@@ -83,22 +82,6 @@ EOF;
     public function setName($name)
     {
         $this->_name = $name;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param integer $size
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
     }
 
     /**

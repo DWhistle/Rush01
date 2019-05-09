@@ -32,7 +32,7 @@ class Page implements IDrawable
     {
         $css = '';
         foreach ($this->css_files as $css_file) {
-            $css .= "<meta rel='stylesheet' href='$css_file' />\n";
+            $css .= "<link rel='stylesheet' href='$css_file' />\n";
         }
         return $css;
     }
