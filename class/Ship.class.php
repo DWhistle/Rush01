@@ -41,21 +41,30 @@ class Ship extends MapObject
     {
         return <<<EOF
 <div class="ship">
-    <div class="ship-right">
-        <img src="/images/ships/$this->_name.png" class="ship-img"/>
-    </div>
-    <div class="ship-left">
+    
+       
+   
+   
+       <img src="/images/ships/$this->_name.png" alt="ship"/>
+       <p>Ship Info:</p>
         <ul class="ship-parameters">
-            <li class="property">$this->_name</li>
-            <li class="property">$this->size</li>
-            <li class="property">$this->hull_points</li>
-            <li class="property">$this->PP</li>
-            <li class="property">$this->speed</li>
-            <li class="property">$this->handling</li>
-            <li class="property">$this->bouclier</li>
-            <li class="property">$this->weapons</li>
+            <li class="property">Name:  $this->_name</li>
+            <li class="property">Size:  {$this->getSize()[0]}, {$this->getSize()[1]}</li>
+            <li class="property">Hull:  $this->hull_points</li>
+            <li class="property">Power:  $this->PP</li>
+            <li class="property">Speed:  $this->speed</li>
+            <li class="property">Handling:  $this->handling</li>
+            <li class="property">Shield:  $this->shield</li>
+            <li class="property">Weapons:  $this->weapons</li>
         </ul>
-    </div>
+
+</div>
+<div class="controls"> 
+
+<button name="left" class="button">&larr;</button> 
+<button name="forward" class="button">&uarr;</button> 
+<button name="right" class="button">&rarr;</button>
+
 </div>
 EOF;
     }
