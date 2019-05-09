@@ -90,6 +90,4 @@ class Weapon
 	{
 		$this->EffectZone = $EffectZone;
 	}
-
-	public function isInRange(Ship $)
 }
