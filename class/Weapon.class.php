@@ -3,89 +3,101 @@
 
 class Weapon
 {
-    private $Charge;
-    private $ShortRange;
-    private $MiddleRange;
-    private $LongRange;
-    private $EffectZone;
+	// use WeaponType;
 
-    /**
-     * @return mixed
-     */
-    public function getCharge()
-    {
-        return $this->Charge;
-    }
+	private $Charge;
+	private $ShortRange;
+	private $MiddleRange;
+	private $LongRange;
+	private $EffectZone;
 
-    /**
-     * @param mixed $Charge
-     */
-    public function setCharge($Charge)
-    {
-        $this->Charge = $Charge;
-    }
+	public function __construct()
+	{
+		$Charge = 0;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getShortRange()
-    {
-        return $this->ShortRange;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getCharge()
+	{
+		return $this->Charge;
+	}
 
-    /**
-     * @param mixed $ShortRange
-     */
-    public function setShortRange($ShortRange)
-    {
-        $this->ShortRange = $ShortRange;
-    }
+	/**
+	 * @param mixed $Charge
+	 */
+	public function setCharge($Charge)
+	{
+		$this->Charge = $Charge;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getMiddleRange()
-    {
-        return $this->MiddleRange;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getShortRange()
+	{
+		return $this->ShortRange;
+	}
 
-    /**
-     * @param mixed $MiddleRange
-     */
-    public function setMiddleRange($MiddleRange)
-    {
-        $this->MiddleRange = $MiddleRange;
-    }
+	/**
+	 * @param mixed $ShortRange
+	 */
+	public function setShortRange($ShortRange)
+	{
+		$this->ShortRange = $ShortRange;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getLongRange()
-    {
-        return $this->LongRange;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getMiddleRange()
+	{
+		return $this->MiddleRange;
+	}
 
-    /**
-     * @param mixed $LongRange
-     */
-    public function setLongRange($LongRange)
-    {
-        $this->LongRange = $LongRange;
-    }
+	/**
+	 * @param mixed $MiddleRange
+	 */
+	public function setMiddleRange($MiddleRange)
+	{
+		$this->MiddleRange = $MiddleRange;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getEffectZone()
-    {
-        return $this->EffectZone;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getLongRange()
+	{
+		return $this->LongRange;
+	}
 
-    /**
-     * @param mixed $EffectZone
-     */
-    public function setEffectZone($EffectZone)
-    {
-        $this->EffectZone = $EffectZone;
-    }
+	/**
+	 * @param mixed $LongRange
+	 */
+	public function setLongRange($LongRange)
+	{
+		$this->LongRange = $LongRange;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getEffectZone()
+	{
+		return $this->EffectZone;
+	}
+
+	/**
+	 * @param mixed $EffectZone
+	 */
+	public function setEffectZone($EffectZone)
+	{
+		$this->EffectZone = $EffectZone;
+	}
+
+	public function isInRange($ship)
+	{
+
+	}
 }

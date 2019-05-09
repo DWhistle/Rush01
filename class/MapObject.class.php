@@ -1,6 +1,6 @@
 <?php
 
-
+require_once('class/IDrawable.class.php');
 abstract class MapObject implements IDrawable
 {
     private $pos;
