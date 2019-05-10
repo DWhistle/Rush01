@@ -95,10 +95,10 @@ EOF;
     }
 
     public function intersects($obj2){
-        $top_left1 = $this->getPos()['top-left'];
-        $top_left2 = $obj2->getPos()['top-left'];
-        $bottom_right1 = $this->getPos()['bottom-right'];
-        $bottom_right2 = $obj2->getPos()['bottom-right'];
+        $top_left1 = $this->getRectangle()['top-left'];
+        $top_left2 = $obj2->getRectangle()['top-left'];
+        $bottom_right1 = $this->getRectangle()['bottom-right'];
+        $bottom_right2 = $obj2->getRectangle()['bottom-right'];
         return ($top_left1['y'] < $bottom_right2['y'] ||
         $bottom_right1['y'] > $top_left1['y'] ||
         $bottom_right1['x'] < $top_left2['x'] ||
