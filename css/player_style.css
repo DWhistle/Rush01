@@ -1,3 +1,23 @@
-.player1{
-    
+.player{
+    height: 300px;
+    width: 300px;
+    margin-top: 10px;
+    margin-right: 10px;
+    right: 0;
+    position: absolute;
+    background-color: rgb(60, 106, 128);
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
+
+.player img{
+    height: 300px;
+    width: 300px;
+}
+.player p{
+    background-color: wheat;
+    font-size: 40px;
+    text-align: center;
+
+}
+

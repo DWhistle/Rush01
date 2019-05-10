@@ -7,13 +7,15 @@ class Player implements IDrawable
     public $state = false;
     public $active_ship = null;
     public $name = "";
+    public $icon = "";
 
 
     public function __construct($array)
     {
-        $this->state = $array['turn'];
+        
         $this->name = $array['name'];
         $this->ships = $array['ships'];
+        $this->icon = $array['icon'];
         if (array_key_exists('state', $array))
             $this->state = $array['state'];
     }
@@ -27,16 +29,21 @@ class Player implements IDrawable
     {
         return <<<EOF
     <div class="player">
-        <img src="player1.jpg">
+    <div>
+        <img src="$this->icon">
+    </div>
+    <div>
         <p>$this->name</p>
         <p>$this->active_ship</p>
     </div>
+    </div>
+    
 EOF;
 
     }
     public function draw()
     {
-        $this->getHtml();
+        echo "{$this->getHtml()}";
     }
 
     /**
