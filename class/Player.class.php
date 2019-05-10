@@ -73,6 +73,14 @@ EOF;
         $this->active_ship = $active_ship;
     }
 
+    /**
+     * @return null
+     */
+    public function getActiveShip()
+    {
+        return $this->active_ship;
+    }
+
     public function getCss()
     {
         // TODO: Implement getCss() method.
@@ -81,6 +89,14 @@ EOF;
     public function getJs()
     {
         // TODO: Implement getJs() method.
+    }
+
+
+    public function move($move_points, $attack_points, $repair_point)
+    {
+        if ($move_points + $attack_points + $repair_point == $this->active_ship->getPP()) {
+            // TODO: написать вклячение систем
+        }
     }
 }
 
