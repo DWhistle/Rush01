@@ -1,7 +1,7 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
+require_once ('class/Drawable.class.php');
 
-class Ship extends MapObject
+class Ship implements IDrawable
 {
     private $hull_points;
     private $PP;
@@ -11,19 +11,11 @@ class Ship extends MapObject
     private $weapons;
 
 
-    /**
-     * Ship constructor.
-     * @param $name
-     * @param $x
-     * @param $y
-     * @param $args
-     */
-    public function __construct($name, $x, $y, $args)
+    public function __construct($name, $top_left, $bottom_right, $size, $args)
     {
         $this->setName($name);
-        $this->setPos($x, $y);
-        if (array_key_exists('size', $args))
-            $this->setSize($args['size'][0], $args['size'][1]);
+        $this->setRectangle($top_left, $bottom_right);
+        $this->setSize($size['x'], $size['y']);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
         if (array_key_exists('PP', $args))
@@ -45,21 +37,15 @@ class Ship extends MapObject
 
     public function getHtml()
     {
-        return $this->getJs() . <<<EOF
-<div class="map-object" id="obj-{$this->getName()}" style="top: {$this->getPos()[1]}0px; left: {$this->getPos()[0]}0px; width: {$this->getSize()[0]}0px; height: {$this->getSize()[1]}0px;" ></div>
-<div class="ship" id="descr-{$this->getName()}">
+        return <<<EOF
+<div class="ship">
 <p>Ship Info:</p>
     <div class="left-ship">
-        <img src="/images/ships/{$this->getName()}.png" alt="ship"/>
-        <div class="controls">
-            <button name="left" class="button">&larr;</button> 
-            <button name="forward" class="button">&uarr;</button> 
-            <button name="right" class="button">&rarr;</button>
-        </div>
+        <img src="/images/ships/$this->_name.png" alt="ship"/>
     </div>
     <div class="right-ship">
         <ul class="ship-parameters">
-            <li class="property">Name:  {$this->getName()}</li>
+            <li class="property">Name:  $this->_name</li>
             <li class="property">Size:  {$this->getSize()[0]}, {$this->getSize()[1]}</li>
             <li class="property">Hull:  $this->hull_points</li>
             <li class="property">Power:  $this->PP</li>
@@ -69,6 +55,13 @@ class Ship extends MapObject
             <li class="property">Weapons:  $this->weapons</li>
         </ul>
     </div>
+</div>
+<div class="controls"> 
+
+<button name="left" class="button">&larr;</button> 
+<button name="forward" class="button">&uarr;</button> 
+<button name="right" class="button">&rarr;</button>
+
 </div>
 EOF;
     }
@@ -192,15 +185,6 @@ EOF;
 
     public function getJs()
     {
-        $obj_idname  = "#obj-{$this->getName()}";
-        $descr_idname = ".ship#descr-{$this->getName()}";
-
-        $js =  "<script>";
-        $js .= "$(function() {";
-        $js .= "$('$obj_idname').hover( function () { $('$descr_idname').show(); });";
-        $js .= "$('$obj_idname').mouseleave( function () { $('$descr_idname').hide() });";
-        $js .= "});";
-        $js .= "</script>";
-        return ($js);
+        // TODO: Implement getJs() method.
     }
 }

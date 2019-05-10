@@ -5,13 +5,13 @@ abstract class Weapon
 {
 	// use WeaponType;
 
-	protected $_base_charges;
-	protected $_coordinates;
-	protected $_orientation;
-	protected $_short_range;
-	protected $_middle_range;
-	protected $_long_range;
-	protected $_effect_zone;
+	private $_base_charges;
+	private $_coordinates;
+	private $_orientation;
+	private $_short_range;
+	private $_middle_range;
+	private $_long_range;
+	private $_effect_zone;
 
 	public abstract function isInRange($ship);
 

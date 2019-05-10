@@ -3,40 +3,62 @@
 require_once('class/IDrawable.class.php');
 abstract class MapObject implements IDrawable
 {
-    private $pos;
-    private $size;
-    private $name;
+    private $_id;
+    private $_rectangle;    //	= array(  "top-left" => ["x" => ..., "y" => ...],
+                            //            "bottom-right" => ["x" => ..., "y" => ...] )
+
+    private $_size;         //  = array(  "x" => ...,
+                            //            "y" => ... )
+
+    private $_name;
+    private static $_obj_count = 0;
 
     /**
-     * @param int $pos_x, $pos_y
+     * @return int
      */
-    public function setPos($pos_x, $pos_y)
+    public function getId()
     {
-        $this->pos = [$pos_x, $pos_y];
+        return ($this->_id);
     }
 
     /**
-     * @return integer, integer
+     * @param int $id
      */
-    public function getPos()
+    public function setId($id)
     {
-        return $this->pos;
+        $this->_id = $id;
     }
 
     /**
-     * @param int $size_x, $size_y
+     * @return array
      */
-    public function setSize($size_x, $size_y)
+    public function getRectangle()
     {
-        $this->size = [$size_x, $size_y];
+        return $this->_rectangle;
     }
 
     /**
-     * @return integer, integer
+     * @param array $top_left, $bottom_right
+     */
+    public function setRectangle($top_left, $bottom_right)
+    {
+        $this->_rectangle = [$top_left, $bottom_right];
+    }
+
+    /**
+     * @return array
      */
     public function getSize()
     {
-        return $this->size;
+        return $this->_size;
+    }
+
+    /**
+     * @param array $size
+     */
+    public function setSize($size)
+    {
+        $this->_size = $size;
     }
 
     /**
