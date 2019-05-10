@@ -64,6 +64,7 @@ class Ship extends MapObject
             <button name="left" class="button">&larr;</button> 
             <button name="forward" class="button">&uarr;</button> 
             <button name="right" class="button">&rarr;</button>
+            <button name="kill" class="button">K</button>
         </div>
     </div>
     <div class="right-ship">
