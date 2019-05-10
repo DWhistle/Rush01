@@ -6,7 +6,8 @@ abstract class Weapon
 	// use WeaponType;
 
 	protected $_base_charges;
-	protected	$_orientation;
+	protected $_coordinates;
+	protected $_orientation;
 	protected $_short_range;
 	protected $_middle_range;
 	protected $_long_range;
