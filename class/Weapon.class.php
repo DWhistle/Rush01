@@ -1,35 +1,49 @@
 <?php
 
 
-class Weapon
+abstract class Weapon
 {
 	// use WeaponType;
 
-	private $Charge;
-	private $ShortRange;
-	private $MiddleRange;
-	private $LongRange;
-	private $EffectZone;
+	protected $_base_charges;
+	protected	$_orientation;
+	protected $_short_range;
+	protected $_middle_range;
+	protected $_long_range;
+	protected $_effect_zone;
 
-	public function __construct()
+	public abstract function isInRange($ship);
+
+	/**
+	 * @return mixed
+	 */
+	public function getCharges()
 	{
-		$Charge = 0;
+		return $this->_base_charges;
+	}
+
+	/**
+	 * @param mixed $base_charges
+	 */
+	public function setCharges($base_charges)
+	{
+		$this->_base_charges = $base_charges;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getCharge()
+	public function getOrientation()
 	{
-		return $this->Charge;
+		return $this->_orientation;
 	}
 
 	/**
-	 * @param mixed $Charge
+	 * @param mixed $orientation
 	 */
-	public function setCharge($Charge)
+	public function setOrientation($orientation)
 	{
-		$this->Charge = $Charge;
+		$this->_orientation = $orientation;
 	}
 
 	/**
@@ -96,8 +110,4 @@ class Weapon
 		$this->EffectZone = $EffectZone;
 	}
 
-	public function isInRange($ship)
-	{
-
-	}
 }
