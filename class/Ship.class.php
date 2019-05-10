@@ -43,6 +43,11 @@ class Ship extends MapObject
 <p>Ship Info:</p>
     <div class="left-ship">
         <img src="/images/ships/$this->_name.png" alt="ship"/>
+        <div class="controls">
+            <button name="left" class="button">&larr;</button> 
+            <button name="forward" class="button">&uarr;</button> 
+            <button name="right" class="button">&rarr;</button>
+        </div>
     </div>
     <div class="right-ship">
         <ul class="ship-parameters">
@@ -56,13 +61,6 @@ class Ship extends MapObject
             <li class="property">Weapons:  $this->weapons</li>
         </ul>
     </div>
-</div>
-<div class="controls"> 
-
-<button name="left" class="button">&larr;</button> 
-<button name="forward" class="button">&uarr;</button> 
-<button name="right" class="button">&rarr;</button>
-
 </div>
 EOF;
     }

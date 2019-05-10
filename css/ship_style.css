@@ -3,8 +3,8 @@
     height: auto;
     width: 49%;
     vertical-align: middle;
-    margin: 0 10px;
 }
+
 .ship ul, .ship li {
     list-style: none;
 }
@@ -13,8 +13,6 @@
     background-color: royalblue;
     font-family: Damascus, serif;
     font-size: 35px;
-    padding: 2px 0;
-    border-bottom: 2px solid grey;
     text-align: center;
     color: white;
 }

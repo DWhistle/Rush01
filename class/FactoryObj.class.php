@@ -32,6 +32,7 @@ class FactoryObj
     public function drawAll()
     {
         echo "<div class='map'>";
+        include ('views/template/map.php');
         foreach ($this->objects as $object) {
             $object->draw();
         }
