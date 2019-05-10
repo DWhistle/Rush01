@@ -6,7 +6,7 @@ class BasicRailgun extends Weapon	//	название временное и по
 	public function __construct()
 	{
 		$this->_charges = 0;
-		$this->_coordinates = 0;
+		$this->_coordinates = ["x" => 0, "y" => 0];
 		$this->_orientation = "top";
 		$this->_short_range = [1, 30];
 		$this->_middle_range = [31, 60];
@@ -14,11 +14,14 @@ class BasicRailgun extends Weapon	//	название временное и по
 		$this->_effect_zone = "srtaight_line";
 	}
 
-	public function isInRange(Ship $host_ship, Ship $enemy_ship)
+	public function isInRange(Ship $enemy_ship)
 	{
-		$area_of_fire = [$host_ship];
-		$coordinates = getShipCoordinates($enemy_ship);	//	array( "top-left" => [x, y], "bottom-right" => [x, y] )
-		if (1);
+		$enemy_coordinates = getShipCoordinates($enemy_ship);	//	array( "top-left" => [x, y], "bottom-right" => [x, y] )
+		if ($this->_orientation == "top")
+		{
+			if ($enemy_coordinates["x"])
+		}
+		else if ()
 	}
 
 	public function getCharges()
@@ -40,13 +43,13 @@ class BasicRailgun extends Weapon	//	название временное и по
 	{
 		$rectangle = $host_ship->getShipCoordinates();
 		if ($this->_orientation == "top")
-			$this->_coordinates = [$rectangle["top-left"][0] + $hostShip->getSizeX() / 2, $rectangle["top-left"][1]];
-		if ($this->_orientation == "bottom")
-			$this->_coordinates = [$rectangle["bottom-right"][0] - $hostShip->getSizeX() / 2 , $rectangle["bottom-right"][1]];
-		if ($this->_orientation == "left")
-			$this->_coordinates = [$rectangle["top-left"][0], $rectangle["bottom-right"][1] + $hostShip->getSizeY() / 2];
-		if ($this->_orientation == "right")
-			$this->_coordinates = [$rectangle["bottom-right"][0], $rectangle["top-left"][1] - $hostShip->getSizeY() / 2];
+			$this->_coordinates = ["x" => $rectangle["top-left"]["x"] + $hostShip->getSizeX() / 2, "y" => $rectangle["top-left"]["y"]];
+		else if ($this->_orientation == "bottom")
+			$this->_coordinates = ["x" => $rectangle["bottom-right"]["x"] - $hostShip->getSizeX() / 2 , "y" => $rectangle["bottom-right"]["y"]];
+		else if ($this->_orientation == "left")
+			$this->_coordinates = ["x" => $rectangle["top-left"]["x"], "y" => $rectangle["bottom-right"]["y"] + $hostShip->getSizeY() / 2];
+		else if ($this->_orientation == "right")
+			$this->_coordinates = ["x" => $rectangle["bottom-right"]["x"], "y" => $rectangle["top-left"]["y"] - $hostShip->getSizeY() / 2];
 	}
 
 	public function getOrientation()
