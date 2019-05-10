@@ -15,3 +15,4 @@ $page->add_js("https://code.jquery.com/jquery-3.4.1.min.js");
     <?= $page->getJs();?>
 </head>
 <body>
+<div class="content">

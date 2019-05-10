@@ -6,3 +6,15 @@
 ul, li {
     list-style: none;
 }
+.content {
+    display: block;
+    position: absolute;
+}
+.debug {
+    display: inline-block;
+    width: 1000px;
+    bottom: 0;
+    position: absolute;
+    background: lightyellow;
+    border-radius: 15px;
+}
