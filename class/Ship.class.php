@@ -1,15 +1,23 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
-
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Weapon.class.php');
 class Ship extends MapObject
 {
     private $hull_points;
+    private $direction;
     private $PP;
     private $speed;
     private $handling;
     private $shield;
     private $weapons;
     private $state;
+    private $max_hullpoint;
+
+
+    public function getMaxHP()
+    {
+        return $this->max_hullpoint;
+    }
 
 
     public function __construct($name, $top_left, $bottom_right, $args)
@@ -19,8 +27,10 @@ class Ship extends MapObject
         $this->setRectangle($top_left,  $bottom_right);
         $this->state = 'active';
         //$this->setSize([$size['x'], $size['y']]);
-        if (array_key_exists('hull_points', $args))
+        if (array_key_exists('hull_points', $args)) {
             $this->hull_points = $args['hull_points'];
+            $this->max_hullpoint = $args['hull_points'];
+        }
         if (array_key_exists('PP', $args))
             $this->PP = $args['PP'];
         if (array_key_exists('speed', $args))
@@ -162,17 +172,17 @@ EOF;
     /**
      * @return integer
      */
-    public function getBouclier()
+    public function getShield()
     {
-        return $this->bouclier;
+        return $this->shield;
     }
 
     /**
      * @param integer $bouclier
      */
-    public function setBouclier($bouclier)
+    public function setShield($shield)
     {
-        $this->bouclier = $bouclier;
+        $this->shield = $shield;
     }
 
     /**
@@ -225,4 +235,76 @@ EOF;
     {
         $this->state = $state;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDirection()
+    {
+        return $this->direction;
+    }
+
+    /**
+     * @param mixed $direction
+     */
+    public function setDirection($direction)
+    {
+        $this->direction = $direction;
+    }
+
+    public function attack($factory, $pp)
+    {
+        $weapon = $this->getWeapons();
+        if (empty($weapon))
+        {
+            $weapon = new BasicRailgun(5,$this);
+        }
+        if ($factory instanceof FactoryObj) {
+            $ship = 'new';
+            while ($ship = $factory->getNext($ship)) {
+                if ($ship instanceof Ship) {
+                    if ($weapon->isInRange($ship)) {
+                        $hp = $ship->getHullPoints();
+                        $attack = $pp * rand(1, 6) - $ship->shield;
+                        $ship->setHullPoints( $hp -  (($pp * rand(1, 6) - $ship->shield > 0) ? $attack : 0));
+                    }
+                }
+            }
+        }
+    }
+
+    public function move($num)
+    {
+        $pos = $this->getPos();
+        $pos[0] += $num * $this->direction[0];
+        $pos[1] += $num * $this->direction[1];
+        $this->setPos($pos);
+    }
+
+    public function rotateLeft()
+    {
+        $vec = [$this->direction[0], $this->direction[1]];
+        $this->direction = [$vec[1], -$vec[0]];
+        $size = $this->getSize();
+        $this->setSize([$size[1], $size[0]]);
+    }
+
+    public function rotateRight()
+    {
+        $vec = [$this->direction[0], $this->direction[1]];
+        $this->direction = [-$vec[1], $vec[0]];
+        $size = $this->getSize();
+        $this->setSize([$size[1], $size[0]]);
+    }
+
+    public function repair($num)
+    {
+        if ($num > 0)
+        {
+            $this->hull_points = ($this->hull_points + $num <= $this->max_hullpoint)
+                ? $this->hull_points + $num
+                : $this->max_hullpoint;
+        }
+    }
+
 }
