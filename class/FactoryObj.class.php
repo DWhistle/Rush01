@@ -1,5 +1,5 @@
 <?php
-require_once ("class/MapObject.class.php");
+require_once ($_SERVER['DOCUMENT_ROOT'] . "/class/MapObject.class.php");
 
 class FactoryObj
 {
@@ -35,6 +35,15 @@ class FactoryObj
             $this->objects[] = $obj;
         else
             throw new Exception("{$obj->getName()} is not an MapObject");
+    }
+
+    public function getById($id)
+    {
+        foreach ($this->objects as $object) {
+            if ($object->getId() == $id)
+                return ($object);
+        }
+        return (null);
     }
 
     public function drawAll()

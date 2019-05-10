@@ -1,5 +1,5 @@
 <?php
-
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/IDrawable.class.php');
 
 class Player implements IDrawable
 {
@@ -12,22 +12,33 @@ class Player implements IDrawable
 
     public function __construct($array)
     {
-        
-        $this->name = $array['name'];
-        $this->ships = $array['ships'];
-        $this->icon = $array['icon'];
-        if (array_key_exists('state', $array))
-            $this->state = $array['state'];
+        if (is_array($array)) {
+            $this->name = $array['name'];
+            $this->ships = $array['ships'];
+            $this->icon = $array['icon'];
+            if (array_key_exists('state', $array))
+                $this->state = $array['state'];
+        }
+        else
+        {
+            $player = $array;
+            $this->ships = $player->ships;
+            $this->state = $player->state;
+            $this->active_ship = $player->active_ship;
+            $this->name = $player->name;
+            $this->icon = $player->icon;
+        }
     }
+
     public function addShip($ship)
     {
         if ($ship instanceof Ship)
-            $this->ships.array_push($ship);
+            $this->ships[] = $ship;
     }
 
     public function getHtml()
     {
-        return <<<EOF
+        $html = <<<EOF
     <div class="player">
     <div>
         <img src="$this->icon">
@@ -37,8 +48,13 @@ class Player implements IDrawable
         <p>$this->active_ship</p>
     </div>
     </div>
-    
 EOF;
+        if (!empty($this->ships)) {
+            foreach ($this->ships as $ship) {
+                $html .= $ship->getJs();
+            }
+        }
+        return $html;
 
     }
     public function draw()
@@ -53,6 +69,7 @@ EOF;
     {
         return $this->ships;
     }
+
     public function getState(){
         return $this->state;
     }
@@ -70,6 +87,7 @@ EOF;
      */
     public function setActiveShip($active_ship)
     {
+        $active_ship->setState('move');
         $this->active_ship = $active_ship;
     }
 
@@ -96,6 +114,7 @@ EOF;
     {
         if ($move_points + $attack_points + $repair_point == $this->active_ship->getPP()) {
             // TODO: написать вклячение систем
+            return (0);
         }
     }
 }
