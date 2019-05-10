@@ -13,6 +13,7 @@ class Ship extends MapObject
 
     public function __construct($name, $top_left, $bottom_right, $args)
     {
+        parent::__construct();
         $this->setName($name);
         $this->setRectangle($top_left, $bottom_right);
         //$this->setSize([$size['x'], $size['y']]);
@@ -63,22 +64,6 @@ class Ship extends MapObject
     </div>
 </div>
 EOF;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
     }
 
     /**

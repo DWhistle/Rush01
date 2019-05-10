@@ -18,13 +18,21 @@ abstract class MapObject implements IDrawable
      */
     private $_pos;
 
+
+
+    public function __construct()
+    {
+        $this->_id = ++self::$_obj_count;
+    }
+
     /**
      * @return int
      */
     public function getId()
     {
-        return ($this->_id);
+        return $this->_id;
     }
+
 
     /**
      * @param int $id
@@ -68,6 +76,7 @@ abstract class MapObject implements IDrawable
         $this->_rectangle = [$this->_pos[0] - $size[0] / 2, $this->_pos[1] - $size[1] / 2];
         $this->_size = $size;
     }
+
 
     /**
      * @param string $name

@@ -4,6 +4,12 @@ require_once ('class/MapObject.class.php');
 class Obstacle extends MapObject
 {
 
+    public function __construct($name)
+    {
+        parent::__construct();
+        $this->setName($name . $this->getId());
+    }
+
     public function getHtml()
     {
         return <<<EOF
