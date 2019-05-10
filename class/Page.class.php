@@ -4,17 +4,19 @@ require_once ('class/IDrawable.class.php');
 
 class Page implements IDrawable
 {
-    private $css_files;
-    private $js_files;
+    private $css_files = [];
+    private $js_files = [];
 
     public function add_js($filename)
     {
-        $this->js_files[] = $filename;
+        if (!in_array($filename, $this->js_files))
+            $this->js_files[] = $filename;
     }
 
     public function add_css($filename)
     {
-        $this->css_files[] = $filename;
+        if (!in_array($filename, $this->css_files))
+            $this->css_files[] = $filename;
     }
 
 
@@ -39,6 +41,10 @@ class Page implements IDrawable
 
     public function getJs()
     {
-        // TODO: Implement getJs() method.
+        $js = '';
+        foreach ($this->js_files as $js_file) {
+            $js .= "<script src='$js_file' type='application/javascript'></script>";
+        }
+        return $js;
     }
 }

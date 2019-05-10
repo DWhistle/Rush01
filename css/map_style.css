@@ -1,4 +1,5 @@
 .map {
+    position: absolute;
     display: flex;
 }
 
@@ -7,4 +8,9 @@
     min-width: 1500px;
     margin: 0 auto;
     background-image: url('/images/map_back.png');
+    background-size: 50px;
+}
+.map-object {
+    position: absolute;
+    background: azure;
 }

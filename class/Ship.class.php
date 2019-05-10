@@ -45,11 +45,12 @@ class Ship extends MapObject
 
     public function getHtml()
     {
-        return <<<EOF
-<div class="ship">
+        return $this->getJs() . <<<EOF
+<div class="map-object" id="obj-{$this->getName()}" style="top: {$this->getPos()[1]}0px; left: {$this->getPos()[0]}0px; width: {$this->getSize()[0]}0px; height: {$this->getSize()[1]}0px;" ></div>
+<div class="ship" id="descr-{$this->getName()}">
 <p>Ship Info:</p>
     <div class="left-ship">
-        <img src="/images/ships/$this->_name.png" alt="ship"/>
+        <img src="/images/ships/{$this->getName()}.png" alt="ship"/>
         <div class="controls">
             <button name="left" class="button">&larr;</button> 
             <button name="forward" class="button">&uarr;</button> 
@@ -58,7 +59,7 @@ class Ship extends MapObject
     </div>
     <div class="right-ship">
         <ul class="ship-parameters">
-            <li class="property">Name:  $this->_name</li>
+            <li class="property">Name:  {$this->getName()}</li>
             <li class="property">Size:  {$this->getSize()[0]}, {$this->getSize()[1]}</li>
             <li class="property">Hull:  $this->hull_points</li>
             <li class="property">Power:  $this->PP</li>
@@ -191,6 +192,15 @@ EOF;
 
     public function getJs()
     {
-        // TODO: Implement getJs() method.
+        $obj_idname  = "#obj-{$this->getName()}";
+        $descr_idname = ".ship#descr-{$this->getName()}";
+
+        $js =  "<script>";
+        $js .= "$(function() {";
+        $js .= "$('$obj_idname').hover( function () { $('$descr_idname').show(); });";
+        $js .= "$('$obj_idname').mouseleave( function () { $('$descr_idname').hide() });";
+        $js .= "});";
+        $js .= "</script>";
+        return ($js);
     }
 }
