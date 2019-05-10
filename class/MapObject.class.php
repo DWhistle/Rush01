@@ -56,8 +56,13 @@ abstract class MapObject implements IDrawable
      */
     public function setRectangle($top_left, $bottom_right)
     {
-        $this->_size = [$bottom_right["x"] - $top_left["x"], $bottom_right["y"] - $top_left["y"]];
-        $this->_pos = [$top_left["x"] + $this->_size[0] / 2, $top_left["y"] + $this->_size[1] / 2];
+        $top_left['x'] = (int)$top_left['x'];
+        $bottom_right['x'] = (int)$bottom_right['x'];
+        $top_left['y'] = (int)$top_left['y'];
+        $bottom_right['y'] = (int)$bottom_right['y'];
+
+        $this->_size = [(int)($bottom_right["x"] - $top_left["x"]), (int)($bottom_right["y"] - $top_left["y"])];
+        $this->_pos = [(int)($top_left["x"] + $this->_size[0] / 2), (int)($top_left["y"] + $this->_size[1] / 2)];
         $this->_rectangle = ["top-left" => $top_left,
                              "bottom-right" => $bottom_right];
     }
@@ -75,7 +80,9 @@ abstract class MapObject implements IDrawable
      */
     public function setSize($size)
     {
-        $this->_rectangle = [$this->_pos[0] - $size[0] / 2, $this->_pos[1] - $size[1] / 2];
+        $size[0] = intval($size[0]);
+        $size[1] = intval($size[1]);
+        $this->_rectangle = [intval($this->_pos[0] - $size[0] / 2), intval($this->_pos[1] - $size[1] / 2)];
         $this->_size = $size;
     }
 
@@ -112,8 +119,8 @@ abstract class MapObject implements IDrawable
      */
     public function setPos($pos)
     {
-        $this->_rectangle = [$pos[0] - $this->_size[0] / 2, $pos[1] - $this->_size[1] / 2];
-        $this->_pos = $pos;
+        $this->_rectangle = [intval($pos[0] - $this->_size[0] / 2), intval($pos[1] - $this->_size[1] / 2)];
+        $this->_pos = [intval($pos[0]), intval($pos[1])];
     }
 
 }
