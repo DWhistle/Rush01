@@ -1,6 +1,7 @@
 <?php
 
-require_once('class/IDrawable.class.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/class/IDrawable.class.php');
+
 abstract class MapObject implements IDrawable
 {
     private $_id;

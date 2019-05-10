@@ -9,6 +9,7 @@ class Ship extends MapObject
     private $handling;
     private $shield;
     private $weapons;
+    private $state;
 
 
     public function __construct($name, $top_left, $bottom_right, $args)
@@ -16,6 +17,7 @@ class Ship extends MapObject
         parent::__construct();
         $this->setName($name);
         $this->setRectangle($top_left,  $bottom_right);
+        $this->state = 'active';
         //$this->setSize([$size['x'], $size['y']]);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
@@ -42,7 +44,7 @@ class Ship extends MapObject
         $left = $this->getRectangle()["top-left"]['x'];
         $width = $this->getSize()[0];
         $height = $this->getSize()[1];
-        return $this->getJs() . <<<EOF
+        $html =  <<<EOF
 <div class="map-object" id="obj-{$this->getName()}" style="top: {$left}0px; left: {$top}0px; width: {$width}0px; height: {$height}0px;" ></div>
 <div class="ship" id="descr-{$this->getName()}">
 <p>Ship Info:</p>
@@ -66,6 +68,9 @@ class Ship extends MapObject
             <li class="property">Weapons:  $this->weapons</li>
         </ul>
     </div>
+EOF;
+        if ($this->getState() == 'active') {
+            $html .= <<<EOF
     <form class="start" method="post">
     Move:&nbsp <input type="text" name="move_points" value=""> <br/>
     Attack: <input type="text" name="attack_points" value=""> <br/>
@@ -75,6 +80,8 @@ class Ship extends MapObject
     </form>
 </div>
 EOF;
+        }
+        return ($html);
     }
 
     public function intersects($obj2){
@@ -201,5 +208,21 @@ EOF;
         $js .= "});";
         $js .= "</script>";
         return ($js);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
     }
 }
