@@ -15,7 +15,7 @@ class Ship extends MapObject
     {
         parent::__construct();
         $this->setName($name);
-        $this->setRectangle($top_left, $bottom_right);
+        $this->setRectangle($top_left,  $bottom_right);
         //$this->setSize([$size['x'], $size['y']]);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
@@ -38,8 +38,12 @@ class Ship extends MapObject
 
     public function getHtml()
     {
+        $top = $this->getRectangle()["top-left"]['y'];
+        $left = $this->getRectangle()["top-left"]['x'];
+        $width = $this->getSize()[0];
+        $height = $this->getSize()[1];
         return $this->getJs() . <<<EOF
-<div class="map-object" id="obj-{$this->getName()}" style="top: {$this->getPos()[1]}0px; left: {$this->getPos()[0]}0px; width: {$this->getSize()[0]}0px; height: {$this->getSize()[1]}0px;" ></div>
+<div class="map-object" id="obj-{$this->getName()}" style="top: {$left}0px; left: {$top}0px; width: {$width}0px; height: {$height}0px;" ></div>
 <div class="ship" id="descr-{$this->getName()}">
 <p>Ship Info:</p>
     <div class="left-ship">

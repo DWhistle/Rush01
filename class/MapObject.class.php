@@ -57,7 +57,8 @@ abstract class MapObject implements IDrawable
     {
         $this->_size = [$bottom_right["x"] - $top_left["x"], $bottom_right["y"] - $top_left["y"]];
         $this->_pos = [$top_left["x"] + $this->_size[0] / 2, $top_left["y"] + $this->_size[1] / 2];
-        $this->_rectangle = [$top_left, $bottom_right];
+        $this->_rectangle = ["top-left" => $top_left,
+                             "bottom-right" => $bottom_right];
     }
 
     /**
