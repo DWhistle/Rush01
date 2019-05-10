@@ -11,11 +11,11 @@ if ($player->getState()) {
             break;
         case "move":
             $ship = $player->getActiveShip();
-            $ship->move();
+            $ship->move(intval($_POST['num']));
             break;
         case "repair":
             $ship = $player->getActiveShip();
-            $ship->repair();
+            $ship->repair(intval($_POST['num']));
             break;
     }
 }

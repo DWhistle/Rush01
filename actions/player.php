@@ -4,16 +4,14 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Player.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/FactoryObj.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
 $action = $_POST['action'];
-if(isset($_SESSION['player']))
-    $player = new Player($_SESSION['player']);
-echo '<pre>';
-print_r($player);
-echo '</pre>';
+if (is_string($_SESSION['player']))
+    $player = unserialize($_SESSION['player']);
 if ($player->getState()) {
     switch ($action) {
         case "activate_ship":
-            $factory = $_SESSION['map'];
-            $ship = $factory->getById($_POST['ship_id']);
+            $factory = unserialize($_SESSION['map']);
+            if ($factory instanceof FactoryObj)
+                $ship = $factory->getById($_POST['ship_id']);
             $player->setActiveShip($ship);
             break;
         case "move":
@@ -24,3 +22,6 @@ if ($player->getState()) {
             break;
     }
 }
+$_SESSION['player'] = serialize($player);
+$_SESSION['map'] = serialize($factory);
+header("Location:{$_SERVER['HTTP_REFERER']}");

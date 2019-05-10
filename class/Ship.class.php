@@ -81,7 +81,7 @@ class Ship extends MapObject
 EOF;
         if ($this->getState() == 'active') {
             $html .= <<<EOF
-    <form class="start" method="post">
+    <form class="start" method="post" action="/actions/player.php">
     Move:&nbsp <input type="text" name="move_points" value=""> <br/>
     Attack: <input type="text" name="attack_points" value=""> <br/>
     Repair: <input type="text" name="repair_points" value="">
@@ -276,8 +276,8 @@ EOF;
     public function move($num)
     {
         $pos = $this->getPos();
-        $pos[0] += $num * $this->direction[0];
-        $pos[1] += $num * $this->direction[1];
+        $pos[0] += intval($num * $this->direction[0]);
+        $pos[1] += intval($num * $this->direction[1]);
         $this->setPos($pos);
     }
 

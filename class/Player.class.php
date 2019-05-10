@@ -9,7 +9,6 @@ class Player implements IDrawable
     private $name = "";
     private $icon = "";
 
-
     public function __construct($array)
     {
         if (is_array($array)) {
@@ -21,12 +20,14 @@ class Player implements IDrawable
         }
         else
         {
-            $player = $array;
-            $this->ships = $player->ships;
-            $this->state = $player->state;
-            $this->active_ship = $player->active_ship;
-            $this->name = $player->name;
-            $this->icon = $player->icon;
+            if ($array instanceof Player) {
+                $player = $array;
+                $this->ships = $player->getShips();
+                $this->state = $player->getState();
+                $this->active_ship = $player->getActive_ship();
+                $this->name = $player->getName();
+                $this->icon = $player->getIcon();
+            }
         }
     }
 
@@ -41,7 +42,7 @@ class Player implements IDrawable
         $html = <<<EOF
     <div class="player">
     <div>
-        <img src="$this->icon">
+        <img src="{$this->getIcon()}">
     </div>
     <div>
         <p>$this->name</p>
@@ -87,7 +88,8 @@ EOF;
      */
     public function setActiveShip($active_ship)
     {
-        $active_ship->setState('move');
+        if ($active_ship instanceof Ship)
+            $active_ship->setState('move');
         $this->active_ship = $active_ship;
     }
 
@@ -116,6 +118,46 @@ EOF;
             // TODO: написать вклячение систем
             return (0);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param string $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    }
+
+    /**
+     * @param array $ships
+     */
+    public function setShips($ships)
+    {
+        $this->ships = $ships;
+    }
+
+    /**
+     * @param bool $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }
 

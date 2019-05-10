@@ -40,8 +40,10 @@ class FactoryObj
     public function getById($id)
     {
         foreach ($this->objects as $object) {
-            if ($object->getId() == $id)
-                return ($object);
+            if ($object instanceof Ship) {
+                if ($object->getId() == $id)
+                    return ($object);
+            }
         }
         return (null);
     }
