@@ -1,0 +1,53 @@
+.left-ship, .right-ship {
+    display: inline-block;
+    height: auto;
+    width: 49%;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+.ship ul, .ship li {
+    list-style: none;
+}
+
+.ship-parameters  li{
+    background-color: royalblue;
+    font-family: Damascus, serif;
+    font-size: 35px;
+    padding: 2px 0;
+    border-bottom: 2px solid grey;
+    text-align: center;
+    color: white;
+}
+
+.ship {
+    display: block;
+    min-width: 300px;
+    max-width: 800px;
+    margin: auto;
+    background-color: darkcyan;
+    border: 10px solid lightskyblue;
+}
+.ship img{
+    height: auto;
+    width: 100%;
+
+}
+.ship p{
+    font-family: Damascus, serif;
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    background-color: cornflowerblue;
+
+}
+
+
+.controls {
+    font-size: 40px;
+    text-align: center;
+    padding-top: 10px;
+
+}
+.controls button{
+    font-size: 60px;
+}

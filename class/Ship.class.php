@@ -3,8 +3,6 @@ require_once ('class/Drawable.class.php');
 
 class Ship implements IDrawable
 {
-    private $_name;
-    private $size;
     private $hull_points;
     private $PP;
     private $speed;
@@ -13,11 +11,12 @@ class Ship implements IDrawable
     private $weapons;
 
 
-    public function __construct($args)
+    public function __construct($name, $x, $y, $args)
     {
-        $this->_name = $args['_name'];
+        $this->setName($name);
+        $this->setPos($x, $y);
         if (array_key_exists('size', $args))
-            $this->size = $args['size'];
+            $this->setSize($args['size'][0], $args['size'][1]);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
         if (array_key_exists('PP', $args))
@@ -41,21 +40,29 @@ class Ship implements IDrawable
     {
         return <<<EOF
 <div class="ship">
-    <div class="ship-right">
-        <img src="/images/ships/$this->_name.png" class="ship-img"/>
+<p>Ship Info:</p>
+    <div class="left-ship">
+        <img src="/images/ships/$this->_name.png" alt="ship"/>
     </div>
-    <div class="ship-left">
+    <div class="right-ship">
         <ul class="ship-parameters">
-            <li class="property">$this->_name</li>
-            <li class="property">$this->size</li>
-            <li class="property">$this->hull_points</li>
-            <li class="property">$this->PP</li>
-            <li class="property">$this->speed</li>
-            <li class="property">$this->handling</li>
-            <li class="property">$this->bouclier</li>
-            <li class="property">$this->weapons</li>
+            <li class="property">Name:  $this->_name</li>
+            <li class="property">Size:  {$this->getSize()[0]}, {$this->getSize()[1]}</li>
+            <li class="property">Hull:  $this->hull_points</li>
+            <li class="property">Power:  $this->PP</li>
+            <li class="property">Speed:  $this->speed</li>
+            <li class="property">Handling:  $this->handling</li>
+            <li class="property">Shield:  $this->shield</li>
+            <li class="property">Weapons:  $this->weapons</li>
         </ul>
     </div>
+</div>
+<div class="controls"> 
+
+<button name="left" class="button">&larr;</button> 
+<button name="forward" class="button">&uarr;</button> 
+<button name="right" class="button">&rarr;</button>
+
 </div>
 EOF;
     }
@@ -74,22 +81,6 @@ EOF;
     public function setName($name)
     {
         $this->_name = $name;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param integer $size
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
     }
 
     /**
@@ -186,5 +177,15 @@ EOF;
     public function setWeapons(array $weapons)
     {
         $this->weapons = $weapons;
+    }
+
+    public function getCss()
+    {
+        return "<meta rel='stylesheet' href='ship-{$this->getName()}.css'>";
+    }
+
+    public function getJs()
+    {
+        // TODO: Implement getJs() method.
     }
 }
