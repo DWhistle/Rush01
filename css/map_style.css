@@ -2,9 +2,9 @@
     display: flex;
 }
 
-.maps{
+.maps {
     height: 1000px;
     min-width: 1500px;
     margin: 0 auto;
-    background-color: grey;
+    background-image: url('/images/map_back.png');
 }
