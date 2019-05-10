@@ -1,7 +1,7 @@
 <?php
-require_once ('class/Drawable.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
 
-class Ship implements IDrawable
+class Ship extends MapObject
 {
     private $hull_points;
     private $PP;
@@ -11,6 +11,13 @@ class Ship implements IDrawable
     private $weapons;
 
 
+    /**
+     * Ship constructor.
+     * @param $name
+     * @param $x
+     * @param $y
+     * @param $args
+     */
     public function __construct($name, $x, $y, $args)
     {
         $this->setName($name);
