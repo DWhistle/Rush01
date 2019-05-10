@@ -16,8 +16,7 @@
 
 .ship {
     display: none;
-    min-width: 300px;
-    max-width: 800px;
+    width: 300px;
     margin: auto;
     background-color: darkcyan;
     border: 5px solid lightskyblue;
@@ -33,7 +32,6 @@
     text-align: center;
     color: white;
     background-color: cornflowerblue;
-
 }
 
 

@@ -6,7 +6,12 @@ $ship_id = $_POST['id'];
 switch ($action)
 {
     case "fire":
-
+        $player = $_SESSION['player'];
+        if ($player->getState())
+        {
+            $ship = $player->getActiveShip();
+            $ship->attack();
+        }
         break;
     case "move":
 
