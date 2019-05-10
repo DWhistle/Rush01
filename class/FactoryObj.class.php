@@ -46,6 +46,15 @@ class FactoryObj
         return (null);
     }
 
+
+    public function getNext(&$next)
+    {
+        if ('new' == $next) {
+            $next = $this->objects;
+        }
+        next($next);
+    }
+
     public function drawAll()
     {
         echo "<div class='map'>";
