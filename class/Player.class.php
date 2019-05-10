@@ -3,11 +3,11 @@
 
 class Player implements IDrawable
 {
-    public $ships = array();
-    public $state = false;
-    public $active_ship = null;
-    public $name = "";
-    public $icon = "";
+    private $ships = array();
+    private $state = false;
+    private $active_ship = null;
+    private $name = "";
+    private $icon = "";
 
 
     public function __construct($array)
