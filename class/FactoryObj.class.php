@@ -9,6 +9,14 @@ class FactoryObj
     private $min_y;
     private $max_y;
 
+
+    /**
+     * FactoryObj constructor.
+     * @param $min_x
+     * @param $max_x
+     * @param $min_y
+     * @param $max_y
+     */
     public function __construct($min_x, $max_x, $min_y, $max_y)
     {
         $this->min_x = $min_x;
@@ -32,6 +40,7 @@ class FactoryObj
     public function drawAll()
     {
         echo "<div class='map'>";
+        include ('views/template/map.php');
         foreach ($this->objects as $object) {
             $object->draw();
         }

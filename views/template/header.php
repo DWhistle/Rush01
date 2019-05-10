@@ -2,6 +2,7 @@
 session_start();
 require_once ('class/Page.class.php');
 $page = new Page();
+$page->add_css('/css/all_style.css');
 $page->add_css('/css/ship_style.css');
 $page->add_css('/css/map_style.css');
 $page->add_css('/css/player_style.css');
