@@ -174,8 +174,8 @@ EOF;
 
         $js =  "<script>";
         $js .= "$(function() {";
-        $js .= "$('$obj_idname').hover( function () { $('$descr_idname').show(); });";
-        $js .= "$('$obj_idname').mouseleave( function () { $('$descr_idname').hide() });";
+        $js .= "$('$obj_idname').click( function () { $('$descr_idname').toggle(); });";
+//        $js .= "$('$obj_idname').mouseleave( function () { $('$descr_idname').hide() });";
         $js .= "});";
         $js .= "</script>";
         return ($js);

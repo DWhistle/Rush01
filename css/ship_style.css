@@ -5,14 +5,11 @@
     vertical-align: middle;
 }
 
-.ship ul, .ship li {
-    list-style: none;
-}
 
 .ship-parameters  li{
     background-color: royalblue;
     font-family: Damascus, serif;
-    font-size: 35px;
+    font-size: 1em;
     text-align: center;
     color: white;
 }
@@ -23,7 +20,7 @@
     max-width: 800px;
     margin: auto;
     background-color: darkcyan;
-    border: 10px solid lightskyblue;
+    border: 5px solid lightskyblue;
 }
 .ship img{
     height: auto;
@@ -32,7 +29,7 @@
 }
 .ship p{
     font-family: Damascus, serif;
-    font-size: 40px;
+    font-size: 2em;
     text-align: center;
     color: white;
     background-color: cornflowerblue;
@@ -41,11 +38,12 @@
 
 
 .controls {
-    font-size: 40px;
+    font-size: 1em;
     text-align: center;
-    padding-top: 10px;
-
+    padding: 5px;
 }
+
 .controls button{
-    font-size: 60px;
+    font-size: 1em;
+    padding: 5px;
 }
