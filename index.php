@@ -21,10 +21,10 @@ else
     $map = $_SESSION['map'];
     $player1 = $_SESSION['player'];
 }
-$player1->draw();
 $map->drawAll();
 echo "<form method='post' action='index.php'>
 <input type='submit' name='game' value='new'/>
 </form>
 ";
+$player1->draw();
 include ('views/template/footer.php');
