@@ -17,6 +17,8 @@ if ($player->getState()) {
         case "move":
             $player->move($_POST['move_points'], $_POST['attack_points'], $_POST['repair_points']);
             break;
+        case "kill":
+            $player->
         case "finish":
             $player->finish();
             break;
