@@ -1,7 +1,7 @@
 <?php
-require_once ('class/Drawable.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/IDrawable.class.php');
 
-class Ship implements IDrawable
+class Ship extends MapObject
 {
     private $hull_points;
     private $PP;
@@ -11,11 +11,11 @@ class Ship implements IDrawable
     private $weapons;
 
 
-    public function __construct($name, $top_left, $bottom_right, $size, $args)
+    public function __construct($name, $top_left, $bottom_right, $args)
     {
         $this->setName($name);
         $this->setRectangle($top_left, $bottom_right);
-        $this->setSize([$size['x'], $size['y']]);
+        //$this->setSize([$size['x'], $size['y']]);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
         if (array_key_exists('PP', $args))
