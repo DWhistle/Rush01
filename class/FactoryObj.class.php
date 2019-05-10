@@ -48,9 +48,20 @@ class FactoryObj
         return (null);
     }
 
-    public function Map($func, $arg)
+    public function findInRange($weapon)
     {
-        $this->objects = array_map($func, $this->objects, $arg);
+        $ret = [];
+        foreach ($this->objects as $object) {
+            if ($object instanceof Ship)
+            {
+                if ($weapon instanceof Weapon)
+                {
+                    if ($weapon->isInRange($object))
+                        $ret[] = $object;
+                }
+            }
+        }
+        return ($ret);
     }
 
     public function drawAll()

@@ -13,3 +13,6 @@
     background: azure;
     position: absolute;
 }
+.obstacle{
+    background-color: black;
+}

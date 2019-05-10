@@ -3,6 +3,8 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/FactoryObj.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Ship.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Player.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/weapons/BasicRailgun.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Obstacle.class.php');
+
 include ('views/template/header.php');
 if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     $map = new FactoryObj(0, 0, 150, 100);
@@ -22,21 +24,26 @@ if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
         'shield' => 1,
         'weapns' => []
     ]);
-    $player1 = new Player(array('state' => 'true', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
+    $player1 = new Player(array('state' => 'active', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
     $ship1->setWeapons([new BasicRailgun(5, $ship1)]);
     $player1->addShip($ship1);
 
     $ship2->setWeapons([new BasicRailgun(5, $ship2)]);
-    $player2 = new Player(array('state' => 'true', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
+    $player2 = new Player(array('state' => 'wait', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
     $player2->addShip($ship2);
+
+    $obst1 = new Obstacle('obs1', ['x' => 4, 'y' => 10], ['x' => 12, 'y' => 12]);
+    $obst2 = new Obstacle('obs1', ['x' => 40, 'y' => 50], ['x' => 44, 'y' => 52]);
 
     $map->addObj($ship1);
     $map->addObj($ship2);
+    $map->addObj($obst1);
+    $map->addObj($obst2);
 
     $_SESSION['map'] = serialize($map);
     $_SESSION['player'] = serialize($player1);
     $_SESSION['game'] = true;
-    $_SESSION['other'] = $player2;
+    $_SESSION['other'] = serialize($player2);
 }
 else
 {
@@ -44,6 +51,8 @@ else
         $map = unserialize($_SESSION['map']);
     if (is_string($_SESSION['player']))
         $player1 = unserialize($_SESSION['player']);
+    if (is_string($_SESSION['other']))
+        $player2 = unserialize($_SESSION['other']);
 }
 if (isset($map))
     $map->drawAll();
@@ -51,8 +60,8 @@ echo "<form method='post' action='index.php'>
 <input type='submit' name='game' value='new'/>
 </form>
 ";
-echo "<form method='post' action='actions/player.php'>";
 if ($player1 instanceof Player) {
+    echo "<form method='post' action='/actions/player.php'>";
     $ship = $player1->getActiveShip();
     if ($ship instanceof Ship) {
         echo "<input type='hidden' name='ship_id' value='{$ship->getId()}' />";
@@ -69,8 +78,8 @@ if ($player1 instanceof Player) {
             case "finish":
                 echo "<input type='submit' name='action' value='activate_ship'/>";
         }
-        echo "</form>";
     }
+    echo "</form>";
 }
 $player1->draw();
 include ('views/template/footer.php');

@@ -1,6 +1,10 @@
 </div>
 <div class="debug">
-    <?php print_r($_SESSION); ?>
+    <pre>
+<?php
+print_r($_SESSION);
+?>
+    </pre>
 </div>
 </body>
 </html>

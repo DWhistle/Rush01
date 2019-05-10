@@ -69,6 +69,7 @@ class Ship extends MapObject
             <button name="left" class="button">&larr;</button> 
             <button name="forward" class="button">&uarr;</button> 
             <button name="right" class="button">&rarr;</button>
+            <button name="kill" class="button">K</button>
         </div>
     </div>
     <div class="right-ship">
@@ -272,24 +273,24 @@ EOF;
 
     private function attack_ship($ship, $pp)
     {
-        $weapon = $this->getWeapons();
-        if (empty($weapon)) {
-            $weapon = new BasicRailgun(5, $this);
-        }
         if ($ship instanceof Ship) {
-            if ($weapon->isInRange($ship)) {
-                $hp = $ship->getHullPoints();
-                $attack = $pp * rand(1, 6) - $ship->shield;
-                $ship->setHullPoints($hp - (($pp * rand(1, 6) - $ship->shield > 0) ? $attack : 0));
-            }
+            $hp = $ship->getHullPoints();
+            $attack = $pp * rand(1, 6) - $ship->getShield();
+            $ship->setHullPoints($hp - ($attack > 0 ? $attack : 0));
         }
     }
 
     public function attack($factory, $pp)
     {
-
-        if ($factory instanceof FactoryObj) {
-            $factory->Map($this->attack_ship, $pp);
+        foreach ($this->weapons as $weapon) {
+            if ($weapon instanceof Weapon) {
+                $charges = $weapon->getCharge();
+                if ($charges > 0)
+                    foreach ($factory->findInRange($weapon) as $enemy) {
+                        $weapon->setCharges($charges - 1);
+                        $this->attack_ship($enemy, $pp);
+                    }
+            }
         }
     }
 
