@@ -15,7 +15,7 @@ class Ship implements IDrawable
     {
         $this->setName($name);
         $this->setRectangle($top_left, $bottom_right);
-        $this->setSize($size['x'], $size['y']);
+        $this->setSize([$size['x'], $size['y']]);
         if (array_key_exists('hull_points', $args))
             $this->hull_points = $args['hull_points'];
         if (array_key_exists('PP', $args))

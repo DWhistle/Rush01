@@ -5,7 +5,7 @@ abstract class Weapon
 {
 	// use WeaponType;
 
-	private $_base_charges;
+	private $_charges;
 	private $_coordinates;
 	private $_orientation;
 	private $_short_range;
@@ -20,15 +20,15 @@ abstract class Weapon
 	 */
 	public function getCharges()
 	{
-		return $this->_base_charges;
+		return $this->_charges;
 	}
 
 	/**
 	 * @param mixed $base_charges
 	 */
-	public function setCharges($base_charges)
+	public function setCharges($charges)
 	{
-		$this->_base_charges = $base_charges;
+		$this->_charges = $charges;
 	}
 
 	/**
