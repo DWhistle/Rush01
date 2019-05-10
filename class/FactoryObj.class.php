@@ -48,13 +48,9 @@ class FactoryObj
         return (null);
     }
 
-
-    public function getNext(&$next)
+    public function Map($func, $arg)
     {
-        if ('new' == $next) {
-            $next = $this->objects;
-        }
-        next($next);
+        $this->objects = array_map($func, $this->objects, $arg);
     }
 
     public function drawAll()

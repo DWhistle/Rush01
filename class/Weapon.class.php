@@ -13,7 +13,7 @@ abstract class Weapon
 	private $_long_range;
 	private $_effect_zone;
 
-	public abstract function isInRange($ship);
+	public abstract function isInRange(Ship $ship);
 
 	/**
 	 * @return mixed
@@ -47,68 +47,84 @@ abstract class Weapon
 		$this->_orientation = $orientation;
 	}
 
-	/**
-	 * @return mixed
-	 */
-	public function getShortRange()
-	{
-		return $this->ShortRange;
-	}
+    /**
+     * @return mixed
+     */
+    public function getCoordinates()
+    {
+        return $this->_coordinates;
+    }
 
-	/**
-	 * @param mixed $ShortRange
-	 */
-	public function setShortRange($ShortRange)
-	{
-		$this->ShortRange = $ShortRange;
-	}
+    /**
+     * @param mixed $coordinates
+     */
+    public function setCoordinates($coordinates)
+    {
+        $this->_coordinates = $coordinates;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getMiddleRange()
-	{
-		return $this->MiddleRange;
-	}
+    /**
+     * @return mixed
+     */
+    public function getShortRange()
+    {
+        return $this->_short_range;
+    }
 
-	/**
-	 * @param mixed $MiddleRange
-	 */
-	public function setMiddleRange($MiddleRange)
-	{
-		$this->MiddleRange = $MiddleRange;
-	}
+    /**
+     * @param mixed $short_range
+     */
+    public function setShortRange($short_range)
+    {
+        $this->_short_range = $short_range;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getLongRange()
-	{
-		return $this->LongRange;
-	}
+    /**
+     * @return mixed
+     */
+    public function getMiddleRange()
+    {
+        return $this->_middle_range;
+    }
 
-	/**
-	 * @param mixed $LongRange
-	 */
-	public function setLongRange($LongRange)
-	{
-		$this->LongRange = $LongRange;
-	}
+    /**
+     * @param mixed $middle_range
+     */
+    public function setMiddleRange($middle_range)
+    {
+        $this->_middle_range = $middle_range;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getEffectZone()
-	{
-		return $this->EffectZone;
-	}
+    /**
+     * @return mixed
+     */
+    public function getLongRange()
+    {
+        return $this->_long_range;
+    }
 
-	/**
-	 * @param mixed $EffectZone
-	 */
-	public function setEffectZone($EffectZone)
-	{
-		$this->EffectZone = $EffectZone;
-	}
+    /**
+     * @param mixed $long_range
+     */
+    public function setLongRange($long_range)
+    {
+        $this->_long_range = $long_range;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEffectZone()
+    {
+        return $this->_effect_zone;
+    }
+
+    /**
+     * @param mixed $effect_zone
+     */
+    public function setEffectZone($effect_zone)
+    {
+        $this->_effect_zone = $effect_zone;
+    }
 
 }

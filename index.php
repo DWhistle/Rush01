@@ -1,20 +1,42 @@
 <?php
-require_once ('class/FactoryObj.class.php');
-require_once ('class/Ship.class.php');
-require_once ('class/Player.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/FactoryObj.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Ship.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Player.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/weapons/BasicRailgun.class.php');
 include ('views/template/header.php');
 if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     $map = new FactoryObj(0, 0, 150, 100);
-    $ship1 = new Ship('ship1', ['x' => 0, 'y' => 0], ['x' => 2, 'y' => 1], ['speed' => 1]);
-    $ship2 = new Ship('ship2', ['x' => 10, 'y' => 10], ['x' => 13, 'y' => 15], ['speed' => 1]);
+    $ship1 = new Ship('ship1', ['x' => 0, 'y' => 0], ['x' => 2, 'y' => 1], [
+        'speed' => 1,
+        'hull_points' => 10,
+        'PP' => 3,
+        'handling' => 1,
+        'shield' => 1,
+        'weapns' => []
+        ]);
+    $ship2 = new Ship('ship2', ['x' => 10, 'y' => 10], ['x' => 13, 'y' => 15], [
+        'speed' => 1,
+        'hull_points' => 10,
+        'PP' => 3,
+        'handling' => 1,
+        'shield' => 1,
+        'weapns' => []
+    ]);
     $player1 = new Player(array('state' => 'true', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
+    $ship1->setWeapons([new BasicRailgun(5, $ship1)]);
+    $player1->addShip($ship1);
+
+    $ship2->setWeapons([new BasicRailgun(5, $ship2)]);
+    $player2 = new Player(array('state' => 'true', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
+    $player2->addShip($ship2);
+
     $map->addObj($ship1);
     $map->addObj($ship2);
-    $player1->addShip($ship1);
+
     $_SESSION['map'] = serialize($map);
     $_SESSION['player'] = serialize($player1);
     $_SESSION['game'] = true;
-
+    $_SESSION['other'] = $player2;
 }
 else
 {
@@ -29,5 +51,26 @@ echo "<form method='post' action='index.php'>
 <input type='submit' name='game' value='new'/>
 </form>
 ";
+echo "<form method='post' action='actions/player.php'>";
+if ($player1 instanceof Player) {
+    $ship = $player1->getActiveShip();
+    if ($ship instanceof Ship) {
+        echo "<input type='hidden' name='ship_id' value='{$ship->getId()}' />";
+        echo "<input type='hidden' name='move_points' value='1' />";
+        echo "<input type='hidden' name='attack_points' value='1' />";
+        echo "<input type='hidden' name='repair_points' value='1' />";
+        switch ($player1->getState()) {
+            case "activate_ship":
+                echo "<input type='submit' name='action' value='move'/>";
+                break;
+            case "moving":
+                echo "<input type='submit' name='action' value='finish'/>";
+                break;
+            case "finish":
+                echo "<input type='submit' name='action' value='activate_ship'/>";
+        }
+        echo "</form>";
+    }
+}
 $player1->draw();
 include ('views/template/footer.php');

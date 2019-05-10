@@ -1,5 +1,5 @@
 <?php
-
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Weapon.class.php');
 include("Shooting.class.php");
 class BasicRailgun extends Weapon	//	название временное и подлежит изменению в будущем
 {
@@ -7,7 +7,7 @@ class BasicRailgun extends Weapon	//	название временное и по
     {
         $this->setCharges($charges);
         $this->setCoordinates($host_ship);
-        $host_ship->setOrientation();
+        $this->setOrientation($host_ship->getDirection());
         $this->setShortRange([1, 30]);
         $this->setMiddleRange([31, 60]);
         $this->setLongRange([61, 90]);

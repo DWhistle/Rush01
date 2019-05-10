@@ -1,4 +1,6 @@
 <?php
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Ship.class.php');
+
 trait Shooting{
     public function isInRange(Ship $enemy_ship)
     {

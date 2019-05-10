@@ -41,6 +41,11 @@ class Ship extends MapObject
             $this->shield = $args['shield'];
         if (array_key_exists('weapons', $args))
             $this->weapons = $args['weapons'];
+        $size = $this->getSize();
+        if ($size[0] > $size[1])
+            $this->direction = ($this->getPos()[0] < 75) ? [1, 0] : [-1, 0];
+        else
+            $this->direction = ($this->getPos()[1] < 50) ? [0, 1] : [0, -1];
     }
 
     public function Draw()
@@ -75,7 +80,7 @@ class Ship extends MapObject
             <li class="property">Speed:  $this->speed</li>
             <li class="property">Handling:  $this->handling</li>
             <li class="property">Shield:  $this->shield</li>
-            <li class="property">Weapons:  $this->weapons</li>
+            <li class="property">Weapons:  {$this->printWeapons()}</li>
         </ul>
     </div>
 EOF;
@@ -86,6 +91,7 @@ EOF;
     Attack: <input type="text" name="attack_points" value=""> <br/>
     Repair: <input type="text" name="repair_points" value="">
     <input type="hidden" name = "action" value = "activate_ship">
+    <input type="hidden" name="ship_id" value="{$this->getId()}" />
     <input type="submit" value="Activate ship" name="Activate">
     </form>
 </div>
@@ -244,6 +250,18 @@ EOF;
         return $this->direction;
     }
 
+    public function printWeapons()
+    {
+        if (!empty($this->weapons)) {
+            foreach ($this->weapons as $weapon) {
+                $name = get_class($weapon);
+                return "<br /><span>{$name}:{$weapon->getCharges()}</span>";
+            }
+        }
+        else
+            return "<span>none</span>";
+    }
+
     /**
      * @param mixed $direction
      */
@@ -252,24 +270,26 @@ EOF;
         $this->direction = $direction;
     }
 
-    public function attack($factory, $pp)
+    private function attack_ship($ship, $pp)
     {
         $weapon = $this->getWeapons();
-        if (empty($weapon))
-        {
-            $weapon = new BasicRailgun(5,$this);
+        if (empty($weapon)) {
+            $weapon = new BasicRailgun(5, $this);
         }
-        if ($factory instanceof FactoryObj) {
-            $ship = 'new';
-            while ($ship = $factory->getNext($ship)) {
-                if ($ship instanceof Ship) {
-                    if ($weapon->isInRange($ship)) {
-                        $hp = $ship->getHullPoints();
-                        $attack = $pp * rand(1, 6) - $ship->shield;
-                        $ship->setHullPoints( $hp -  (($pp * rand(1, 6) - $ship->shield > 0) ? $attack : 0));
-                    }
-                }
+        if ($ship instanceof Ship) {
+            if ($weapon->isInRange($ship)) {
+                $hp = $ship->getHullPoints();
+                $attack = $pp * rand(1, 6) - $ship->shield;
+                $ship->setHullPoints($hp - (($pp * rand(1, 6) - $ship->shield > 0) ? $attack : 0));
             }
+        }
+    }
+
+    public function attack($factory, $pp)
+    {
+
+        if ($factory instanceof FactoryObj) {
+            $factory->Map($this->attack_ship, $pp);
         }
     }
 

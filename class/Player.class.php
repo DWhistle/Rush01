@@ -41,13 +41,12 @@ class Player implements IDrawable
     {
         $html = <<<EOF
     <div class="player">
-    <div>
-        <img src="{$this->getIcon()}">
-    </div>
-    <div>
-        <p>$this->name</p>
-        <p>$this->active_ship</p>
-    </div>
+        <div>
+            <img src="{$this->getIcon()}">
+        </div>
+        <div>
+            <p>$this->name</p>
+        </div>
     </div>
 EOF;
         if (!empty($this->ships)) {
@@ -112,12 +111,29 @@ EOF;
     }
 
 
-    public function move($move_points, $attack_points, $repair_point)
+    public function move($num, $move_points, $attack_points, $repair_point)
     {
+        $curr_ship = null;
         if ($move_points + $attack_points + $repair_point == $this->active_ship->getPP()) {
-            // TODO: написать вклячение систем
+            foreach ($this->ships as $ship) {
+                if ($ship->getId() == $num) {
+                    $curr_ship = $ship;
+                    break;
+                }
+            }
+            if ($curr_ship instanceof Ship)
+            {
+                $curr_ship->move($move_points);
+                //$curr_ship->attack($attack_points);
+                $curr_ship->repair($repair_point);
+            }
             return (0);
         }
+    }
+
+    public function finish()
+    {
+
     }
 
     /**
