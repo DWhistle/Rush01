@@ -62,7 +62,7 @@ class Ship extends MapObject
         $html =  <<<EOF
 <div class="map-object" id="obj-{$this->getName()}" style="top: {$left}0px; left: {$top}0px; width: {$width}0px; height: {$height}0px;" ></div>
 <div class="ship" id="descr-{$this->getName()}">
-<p>Ship Info:</p>
+    <p>Ship Info:</p>
     <div class="left-ship">
         <img src="/images/ships/{$this->getName()}.png" alt="ship"/>
         <div class="controls">
@@ -88,16 +88,16 @@ EOF;
         if ($this->getState() == 'active') {
             $html .= <<<EOF
     <form class="start" method="post" action="/actions/player.php">
-    Move:&nbsp <input type="text" name="move_points" value=""> <br/>
-    Attack: <input type="text" name="attack_points" value=""> <br/>
-    Repair: <input type="text" name="repair_points" value="">
-    <input type="hidden" name = "action" value = "activate_ship">
-    <input type="hidden" name="ship_id" value="{$this->getId()}" />
-    <input type="submit" value="Activate ship" name="Activate">
+        Move:&nbsp <input type="text" name="move_points" value=""> <br/>
+        Attack: <input type="text" name="attack_points" value=""> <br/>
+        Repair: <input type="text" name="repair_points" value="">
+        <input type="hidden" name = "action" value = "activate_ship">
+        <input type="hidden" name="ship_id" value="{$this->getId()}" />
+        <input type="submit" value="Activate ship" name="Activate">
     </form>
-</div>
 EOF;
         }
+        $html .= "</div>"; // .ship
         return ($html);
     }
 

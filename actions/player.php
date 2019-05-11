@@ -7,11 +7,12 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Ship.class.php');
 $action = $_POST['action'];
 if (is_string($_SESSION['player']))
     $player = unserialize($_SESSION['player']);
+if (is_string($_SESSION['map']))
+    $factory = unserialize($_SESSION['map']);
 if ($player instanceof Player) {
     if ($player->getState()) {
         switch ($action) {
             case "activate_ship":
-                $factory = unserialize($_SESSION['map']);
                 if ($factory instanceof FactoryObj)
                     $ship = $factory->getById($_POST['ship_id']);
                 if ($ship instanceof Ship) ;
@@ -41,6 +42,8 @@ if ($player instanceof Player) {
         }
     }
 }
-$_SESSION['player'] = serialize($player);
-$_SESSION['map'] = serialize($factory);
+if (isset($player))
+    $_SESSION['player'] = serialize($player);
+if (isset($factory))
+    $_SESSION['map'] = serialize($factory);
 header("Location:{$_SERVER['HTTP_REFERER']}");
