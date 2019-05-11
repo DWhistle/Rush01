@@ -88,10 +88,10 @@ EOF;
         if ($this->getState() == 'active') {
             $html .= <<<EOF
     <form class="start" method="post" action="/actions/player.php">
-        Move:&nbsp <input type="text" name="move_points" value=""> <br/>
-        Attack: <input type="text" name="attack_points" value=""> <br/>
-        Repair: <input type="text" name="repair_points" value="">
-        <input type="hidden" name = "action" value = "activate_ship">
+        Move:&nbsp <input type="text" name="move_points" value="1"> <br/>
+        Attack: <input type="text" name="attack_points" value="1"> <br/>
+        Repair: <input type="text" name="repair_points" value="1">
+        <input type="hidden" name = "action" value = "move">
         <input type="hidden" name="ship_id" value="{$this->getId()}" />
         <input type="submit" value="Activate ship" name="Activate">
     </form>

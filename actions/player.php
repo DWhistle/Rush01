@@ -12,14 +12,14 @@ if (is_string($_SESSION['map']))
 if ($player instanceof Player) {
     if ($player->getState()) {
         switch ($action) {
-            case "activate_ship":
+            case "active":
                 if ($factory instanceof FactoryObj)
                     $ship = $factory->getById($_POST['ship_id']);
                 if ($ship instanceof Ship) ;
                 $player->setActiveShip($ship);
-                $player->setState('moving');
+                $player->setState('move');
                 break;
-            case "moving":
+            case "move":
                 if ($player instanceof Player) {
                     $player->move($_POST['ship_id'], $_POST['move_points'], $_POST['attack_points'], $_POST['repair_points']);
                     $player->setState('finish');
@@ -42,8 +42,11 @@ if ($player instanceof Player) {
         }
     }
 }
-if (isset($player))
+if (isset($player)) {
     $_SESSION['player'] = serialize($player);
+    $ship = $player->getShips()[0];
+    $factory->setShip($ship->getId(), $ship);
+}
 if (isset($factory))
     $_SESSION['map'] = serialize($factory);
 header("Location:{$_SERVER['HTTP_REFERER']}");

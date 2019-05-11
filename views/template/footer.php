@@ -2,7 +2,9 @@
 <div class="debug">
     <pre>
 <?php
-print_r($_SESSION);
+print_r(unserialize($_SESSION['player']));
+print_r(unserialize($_SESSION['other']));
+print_r(unserialize($_SESSION['map']));
 ?>
     </pre>
 </div>
