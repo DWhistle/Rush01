@@ -4,7 +4,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Ship.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Player.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/weapons/BasicRailgun.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Obstacle.class.php');
-
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Dice.class.php');
 include ('views/template/header.php');
 if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     $map = new FactoryObj(0, 0, 150, 100);
@@ -26,7 +26,8 @@ if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     ]);
     $player1 = new Player(array('state' => 'active', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
     $ship1->setWeapons([new BasicRailgun(5, $ship1)]);
-    $player1->addShip($ship1);
+	$player1->addShip($ship1);
+	
 
     $ship2->setWeapons([new BasicRailgun(5, $ship2)]);
     $player2 = new Player(array('state' => 'wait', 'name' => 'player1', 'icon' => '/images/Players/p1.png'));
@@ -47,19 +48,32 @@ if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
 }
 else
 {
-    if (is_string($_SESSION['map']))
-        $map = unserialize($_SESSION['map']);
-    if (is_string($_SESSION['player']))
-        $player1 = unserialize($_SESSION['player']);
-    if (is_string($_SESSION['other']))
-        $player2 = unserialize($_SESSION['other']);
+	if (is_string($_SESSION['map']))
+		$map = unserialize($_SESSION['map']);
+	if (is_string($_SESSION['player']))
+		$player1 = unserialize($_SESSION['player']);
+	if (is_string($_SESSION['other']))
+		$player2 = unserialize($_SESSION['other']);
 }
+$dice = new Dice();
+if ($_POST['roll'])
+{
+	echo $dice->rollDice();
+}
+
 if (isset($map))
-    $map->drawAll();
+	$map->drawAll();
 echo "<form method='post' action='index.php'>
 <input type='submit' name='game' value='new'/>
 </form>
 ";
+
+echo "<form method='post' action='index.php'>";
+echo "<input type='submit' name='roll' value='roll'/>";
+echo "<div style ='width:100%; height:200px p'>". $dice->last_result . "</div>";
+echo "</form>";
+
+
 if ($player1 instanceof Player) {
     echo "<form method='post' action='/actions/player.php'>";
     $ship = $player1->getShips()[0];
@@ -82,5 +96,6 @@ if ($player1 instanceof Player) {
     }
     echo "</form>";
 }
+
 $player1->draw();
 include ('views/template/footer.php');

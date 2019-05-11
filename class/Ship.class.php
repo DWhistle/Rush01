@@ -296,6 +296,7 @@ EOF;
 
     public function move($num)
     {
+		//echo $this->getPos();
         $pos = $this->getPos();
         $pos[0] += intval($num * $this->direction[0]);
         $pos[1] += intval($num * $this->direction[1]);
