@@ -128,11 +128,19 @@ EOF;
             }
         }
         if ($curr_ship instanceof Ship) {
-            if ($move_points + $attack_points + $repair_point == $curr_ship->getPP()) {
+            $pp = $curr_ship->getPP();
+            if ($move_points + $attack_points + $repair_point == $pp) {
                 $curr_ship->move($move_points);
                 //$curr_ship->attack($attack_points);
                 $curr_ship->repair($repair_point);
+                $curr_ship->setPP($curr_ship->getMaxPp());
                 $curr_ship->setState('move');
+            }
+            else if ($move_points + $attack_points + $repair_point < $pp) {
+                $curr_ship->move($move_points);
+                //$curr_ship->attack($attack_points);
+                $curr_ship->repair($repair_point);
+                $curr_ship->setPP($pp - ($move_points + $attack_points + $repair_point));
             }
         }
         return (0);

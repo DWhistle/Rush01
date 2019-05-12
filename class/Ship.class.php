@@ -15,6 +15,7 @@ class Ship extends MapObject implements ISelectable
 	private $weapons;
 	private $state;
 	private $max_hullpoint;
+	private $max_pp;
 
 
 	public function getMaxHP()
@@ -34,8 +35,10 @@ class Ship extends MapObject implements ISelectable
 			$this->hull_points = $args['hull_points'];
 			$this->max_hullpoint = $args['hull_points'];
 		}
-		if (array_key_exists('PP', $args))
-			$this->PP = $args['PP'];
+		if (array_key_exists('PP', $args)) {
+            $this->PP = $args['PP'];
+            $this->max_pp = $args['PP'];
+        }
 		if (array_key_exists('speed', $args))
 			$this->speed = $args['speed'];
 		if (array_key_exists('handling', $args))
@@ -425,5 +428,13 @@ EOF;
         $sql = "DELETE FROM ships WHERE id = $id";
         $db = new Db();
         $db->execute($sql);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaxPp()
+    {
+        return $this->max_pp;
     }
 }
