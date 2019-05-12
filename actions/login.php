@@ -10,23 +10,24 @@
 				$_SESSION["login"] = $_GET["login"];
 				$_SESSION["passwd"] = $userinfo["passwd"];
 				$_SESSION["faction"] = $userinfo["faction"];
+				$_SESSION["id"] = $userinfo["id"];
 				unset($_GET["submit"]);
 				unset($_GET["login"]);
 				unset($_GET["passwd"]);
 				$mysqli->close();
 				$_SESSION['message'] = "Приветствуем, ". $_SESSION["login"] . "!)";
-				header("Location: http://localhost:8100/index.php");
+				header("Location: /index.php");
 				exit ;
 			}
 		}
 		$mysqli->close();
 		$_SESSION['message'] = "Неправильное имя пользователя или пароль! :(";
-		header("Location: http://localhost:8100/index.php");
+		header("Location: /index.php");
 		exit ;
 	}
 	else if ($_GET["submit"] == "Logout") {
 		session_destroy();
-		header("Location: http://localhost:8100/index.php");
+		header("Location: /index.php");
 		exit ;
 	}
 ?>

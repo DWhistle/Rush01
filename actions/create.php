@@ -8,7 +8,7 @@
 		if ($mysqli->query($sql)->num_rows != 0){
 			$mysqli->close();
 			$_SESSION['message'] = "Пользователь с таким именем уже существует! :(";
-			header("Location: http://localhost:8100/index.php");
+			header("Location: /index.php");
 			exit();
 		}
 		$sql = "INSERT INTO game_users (`login`, `passwd`, `faction`, `creation_date`) VALUES (\"";
@@ -20,7 +20,7 @@
 		if ($mysqli->query($sql) === TRUE){
 			$mysqli->close();
 			$_SESSION['message'] = "Акаунт успешно создан!";
-			header("Location: http://localhost:8100/index.php");
+			header("Location: /index.php");
 		}
 		else {
 			echo "Error: ". $mysqli->error;
@@ -30,7 +30,7 @@
 	}
 	else {
 		$_SESSION['message'] = "Неправильное имя пользователя или пароль! :(";
-		header("Location: http://localhost:8100/index.php");
+		header("Location: /index.php");
 		exit();
 	}
 ?>
