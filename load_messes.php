@@ -1,12 +1,9 @@
 <?php
-//Подключаемся к БД
+session_start();
 $mysqli = new mysqli("localhost:3306", "root", "133113", "rush01");
-//Выбираем все сообщения
-if ($res = $mysqli->query("SELECT * FROM `messages` ORDER BY `id` ")){
-	//Выводим все сообщения на экран
+if ($res = $mysqli->query("SELECT * FROM `chat` ORDER BY `id` ")){
 	while ($d = $res->fetch_array())
 	{
-		echo "<b><font color='orange'>".$d['login'].": </font></b>".$d['message']."<br>";
+		echo "<b><font color='".$d['color']."'>".$d['login'].": </font></b>".$d['message']."<br>";
 	}
 }
-?>

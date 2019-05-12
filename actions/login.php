@@ -12,6 +12,7 @@ global $MY_DB;
 				$_SESSION["login"] = $_GET["login"];
 				$_SESSION["passwd"] = $userinfo["passwd"];
 				$_SESSION["faction"] = $userinfo["faction"];
+				$_SESSION["id"] = $userinfo["id"];
 				unset($_GET["submit"]);
 				unset($_GET["login"]);
 				unset($_GET["passwd"]);

@@ -3,6 +3,13 @@ container {
 	margin: auto;
 	width: 85em;
 }
+#messages
+{
+	width:300px;
+	height:150px;
+	overflow:auto;
+	border:1px solid silver;
+}
 .col{
 	display: inline-block;
 	vertical-align: top;
@@ -86,3 +93,11 @@ input {
 .dropdown:hover .dropdown-content {display: block;}
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
+.rooms {
+	margin: 1em;
+	border-collapse: separate;
+	empty-cells: hide;
+	text-align: center;
+	table-layout: fixed;
+	border: 2px #2b2b2b solid;
+	color: #2b2b2b;}

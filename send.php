@@ -1,19 +1,6 @@
-<!-- Стили для блока с сообщениями!-->
-<style>
-#messages
-{
-	width:300px;
-	height:150px;
-	overflow:auto;
-	border:1px solid silver;
-}
-</style>
 <!--Подключаем Jquery!-->
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
 	//Загружаем библиотеку JQuery
-	google.load("jquery", "1.3.2");
-	google.load("jqueryui", "1.7.2");
 	//Функция отправки сообщения
 	function send()
 	{
@@ -25,7 +12,11 @@
 				url: "add_mess.php",
 				data:"mess="+mess,
 				// Выводим то что вернул PHP
+				error: function() {
+		alert('There was some error performing the AJAX call!');
+	},
 				success: function(html)
+
 		{
 		  //Если все успешно, загружаем сообщения
 		  load_messes();
@@ -53,26 +44,4 @@
 				}
 		});
   }
-</script>
-<table>
-<tr>
-<td>
-<div id="messages">
-</div>
-</td>
-</tr>
-<tr>
-<td>
-<form action="javascript:send();">
-<input type="text" id="mess_to_send">
-<input type="button" value="Отправить">
-</form>
-</td>
-</tr>
-</table>
-<script>
-//При загрузке страницы подгружаем сообщения
-load_messes();
-//Ставим цикл на каждые три секунды
-setInterval(load_messes,3000);
-</script>
+  </script>
