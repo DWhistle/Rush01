@@ -65,9 +65,12 @@ if ($player1 instanceof Player) {
     $ship = $player1->getShips()[0];
     if ($ship instanceof Ship) {
         echo "<input type='hidden' name='ship_id' value='{$ship->getId()}' />";
+        echo "<input type='hidden' name='move_points' value='1' />";
+        echo "<input type='hidden' name='attack_points' value='1' />";
+        echo "<input type='hidden' name='repair_points' value='1' />";
         switch ($player1->getState()) {
             case "active":
-                //echo "<input type='submit' name='action' value='move'/>";
+                echo "<input type='submit' name='action' value='move'/>";
                 break;
             case "move":
                 echo "<input type='submit' name='action' value='finish'/>";

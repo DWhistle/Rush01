@@ -1,6 +1,6 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/IDrawable.class.php');
-
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Db.class.php');
 class Player implements IDrawable
 {
     private $ships = array();
@@ -8,6 +8,11 @@ class Player implements IDrawable
     private $active_ship = null;
     private $name = "";
     private $icon = "";
+
+    public function getFromDb($id)
+    {
+
+    }
 
     public function __construct($array)
     {
