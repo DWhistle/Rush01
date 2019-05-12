@@ -8,7 +8,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Dice.class.php');
 include ('views/template/header.php');
 if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     $map = new FactoryObj(0, 0, 150, 100);
-    $ship1 = new Ship('ship1', ['x' => 2, 'y' => 10], ['x' => 5, 'y' => 15], [
+    $ship1 = new Ship('ship1', ['x' =>0, 'y' => 10 + 20], ['x' => 5, 'y' => 15 + 20], [
         'speed' => 1,
         'hull_points' => 10,
         'PP' => 3,

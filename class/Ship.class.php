@@ -13,7 +13,6 @@ class Ship extends MapObject
     private $state;
     private $max_hullpoint;
 
-
     public function getMaxHP()
     {
         return $this->max_hullpoint;
