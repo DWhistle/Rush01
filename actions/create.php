@@ -1,9 +1,11 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+global $MY_DB;
 	date_default_timezone_set('europe/moscow');
 	if ($_POST["submit"] == "Register")
 	{
 		$log = strtolower($_POST["login"]);
-		$mysqli = new mysqli("localhost:3306", "root", "133113", "rush01");
+        $mysqli = new mysqli($MY_DB['host'], $MY_DB['dblogin'],$MY_DB['dbpass'],$MY_DB['dbname']);
 		$sql = "select id from game_users where login=\"".$log."\";";
 		if ($mysqli->query($sql)->num_rows != 0){
 			$mysqli->close();

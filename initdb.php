@@ -1,5 +1,7 @@
 <?php
-	$mysqli = new mysqli("localhost:3306", "root", "133113");
+require_once($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+global $MY_DB;
+	$mysqli = new mysqli($MY_DB['host'], $MY_DB['dblogin'],$MY_DB['dbpass'],$MY_DB['dbname']);
 	if (!$mysqli) {
 		die("Connection failed: " . $mysqli->connect_error);
 	}

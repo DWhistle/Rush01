@@ -1,8 +1,10 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+global $MY_DB;
 	session_start();
 	if ($_GET["submit"] == "Login") {
 		$log = strtolower($_GET["login"]);
-		$mysqli = new mysqli("localhost:3306", "root", "133113", "rush01");
+		$mysqli = new mysqli($MY_DB['host'], $MY_DB['dblogin'],$MY_DB['dbpass'],$MY_DB['dbname']);
 		$sql = "select * from game_users where login=\"".$log."\";";
 		if ($row = $mysqli->query($sql)){
 			$userinfo = $row->fetch_assoc();

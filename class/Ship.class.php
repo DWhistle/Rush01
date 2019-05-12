@@ -56,6 +56,23 @@ class Ship extends MapObject implements ISelectable
 		echo $this->getHtml();
 	}
 
+	public function getPosCss()
+    {
+        $top = $this->getRectangle()["top-left"]['y'];
+        $left = $this->getRectangle()["top-left"]['x'];
+        $width = $this->getSize()[0];
+        $height = $this->getSize()[1];
+        $css = "style=\"";
+        $css .= "top: {$top}0px; ";
+        $css .= "left: {$left}0px; ";
+        $css .= "width: {$width}0px; ";
+        $css .= "height: {$height}0px; ";
+        $css .= "border-{$this->getCssDirection()}:5px solid red;";
+        $css .= "margin-{$this->getCssDirection()}:-5px;\"";
+        return $css;
+    }
+
+
 	public function getHtml()
 	{
 		$top = $this->getRectangle()["top-left"]['y'];
@@ -63,7 +80,7 @@ class Ship extends MapObject implements ISelectable
 		$width = $this->getSize()[0];
 		$height = $this->getSize()[1];
 		$html =  <<<EOF
-<div class="map-object" id="obj-{$this->getName()}" style="top: {$left}0px; left: {$top}0px; width: {$width}0px; height: {$height}0px;" ></div>
+<div class="map-object" id="obj-{$this->getName()}" {$this->getPosCss()} ></div>    
 <div class="ship" id="descr-{$this->getName()}">
 	<p>Ship Info:</p>
 	<div class="left-ship">
@@ -253,6 +270,20 @@ EOF;
 	{
 		return $this->direction;
 	}
+
+	public function getCssDirection()
+    {
+        if ($this->direction[0] == 1)
+            return 'right';
+        else if ($this->direction[0] == -1)
+            return 'left';
+        else if ($this->direction[1] == 1)
+            return 'bottom';
+        else if ($this->direction[1] == -1)
+            return 'top';
+        else
+            return '';
+    }
 
 	public function printWeapons()
 	{

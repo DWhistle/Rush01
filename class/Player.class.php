@@ -132,6 +132,7 @@ EOF;
                 $curr_ship->move($move_points);
                 //$curr_ship->attack($attack_points);
                 $curr_ship->repair($repair_point);
+                $curr_ship->setState('move');
             }
         }
         return (0);
@@ -168,6 +169,15 @@ EOF;
     public function setShips($ships)
     {
         $this->ships = $ships;
+    }
+
+    public function isActive()
+    {
+        foreach ($this->ships as $ship) {
+            if ($ship->getState() == 'active')
+                return true;
+        }
+        return false;
     }
 
     /**

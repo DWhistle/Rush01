@@ -22,7 +22,10 @@ if ($player instanceof Player) {
 			case "move":
 				if ($player instanceof Player) {
 					$player->move($_POST['ship_id'], $_POST['move_points'], $_POST['attack_points'], $_POST['repair_points']);
-					$player->setState('finish');
+					if ($player->isActive())
+					    $player->setState('active');
+					else
+                        $player->setState('move');
 				}
 				break;
 			case "kill":
