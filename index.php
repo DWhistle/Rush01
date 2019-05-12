@@ -5,7 +5,7 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Player.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/weapons/BasicRailgun.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Obstacle.class.php');
 
-include ('views/template/header.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/views/template/header.php');
 if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     $map = new FactoryObj(0, 0, 150, 100);
     $ship1 = new Ship('ship1', ['x' => 0, 'y' => 0], ['x' => 2, 'y' => 1], [
@@ -69,15 +69,16 @@ if ($player1 instanceof Player) {
         switch ($player1->getState()) {
             case "active":
                 //echo "<input type='submit' name='action' value='move'/>";
-                break;
+                break ;
             case "move":
                 echo "<input type='submit' name='action' value='finish'/>";
-                break;
+                break ;
             case "finish":
                 echo "<input type='submit' name='action' value='active'/>";
-                break;
+                break ;
         }
     }
     echo "</form>";
 }
-include ('views/template/footer.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/views/lobby.php');
+include ($_SERVER['DOCUMENT_ROOT'] . '/views/template/footer.php');

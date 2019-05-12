@@ -19,7 +19,8 @@ class Db
     public function getFromSelect($sql)
     {
         $query = $this->mysql->query($sql);
-        $ret = [];
+        if ($query === false)
+            return [];
         while ($row = $query->fetch_assoc())
         {
             $ret[] = $row;
@@ -67,7 +68,6 @@ class Db
                 'num' => $query->num_rows,
                 'id' => $this->mysql->insert_id]
             : false;
-        $query->close();
         return $ret;
     }
 

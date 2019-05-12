@@ -15,8 +15,8 @@ if ($player instanceof Player) {
 			case "active":
 				if ($factory instanceof FactoryObj)
 					$ship = $factory->getById($_POST['ship_id']);
-				if ($ship instanceof Ship) ;
-				$player->setActiveShip($ship);
+				if ($ship instanceof Ship)
+				    $player->setActiveShip($ship);
 				$player->setState('move');
 				break;
 			case "move":
@@ -31,6 +31,7 @@ if ($player instanceof Player) {
 			case "kill":
 				if ($player instanceof Player)
 					$player->setState('kill');
+				break ;
 			case "finish":
 				if ($player instanceof Player) {
 					$player->finish();

@@ -1,11 +1,13 @@
-<?php session_start(); ?>
+<?php session_start();
+$dir = '/actions/';
+?>
 <script type="text/javascript">
 	function send()
 	{
 		var mess = $("#mess_to_send").val();
 		$.ajax({
 				type: "POST",
-				url: "add_mess.php",
+				url: "<?=$dir?>add_mess.php",
 				data:"mess="+mess,
 				success: function(html) {
 					load_messes();
@@ -17,7 +19,7 @@
 	{
 		$.ajax({
 			type: "POST",
-			url:  "load_messes.php",
+			url:  "<?=$dir?>load_messes.php",
 			data: "req=ok",
 			success: function(html)
 			{
@@ -31,7 +33,7 @@
 	{
 		$.ajax({
 				type: "POST",
-				url: "add_room.php",
+				url: "<?=$dir?>add_room.php",
 				data:"req=ok",
 				success: function(html) {
 					load_rooms();
@@ -44,7 +46,7 @@
 		alert(id);
 		$.ajax({
 				type: "POST",
-				url: "join_room.php",
+				url: "<?=$dir?>join_room.php",
 				data:"id="+id,
 				success: function(html) {
 				}
@@ -54,7 +56,7 @@
 	{
 		$.ajax({
 				type: "POST",
-				url: "delroom.php",
+				url: "<?=$dir?>delroom.php",
 				data:"req=ok",
 				success: function(html) {
 					load_rooms();
@@ -65,7 +67,7 @@
 	{
 		$.ajax({
 			type: "POST",
-			url:  "load_rooms.php",
+			url:  "<?=$dir?>load_rooms.php",
 			data: "req=ok",
 			success: function(html)
 			{

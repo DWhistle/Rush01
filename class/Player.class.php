@@ -272,6 +272,23 @@ EOF;
         return $pl;
     }
 
+    public static function getByName($login)
+    {
+        $mysql = new Db();
+        $sql = "SELECT u.id, u.login, u.faction, u.player_name, u.room_id, u.state
+            FROM game_users u WHERE u.login = $login";
+        $db_players = $mysql->getFromSelect($sql);
+        $pl = null;
+        if (!empty($db_players))
+            $pl = new Player([
+                'state' => $db_players[0]['state'],
+                'name' => $db_players[0]['player_name'],
+                'ships' => [],
+                'icon' => ''
+            ]);
+        return $pl;
+    }
+
     public static function getAll()
     {
         $mysql = new Db();
