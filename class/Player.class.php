@@ -1,14 +1,19 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/IDrawable.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/ISelectable.class.php');
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Db.class.php');
 class Player implements IDrawable, ISelectable
 {
     private $ships = array();
     private $state = false;
     private $active_ship = null;
     private $name = "";
+    private $login;
+    private $faction;
+    private $room_id;
     private $icon = "";
+    private $id;
+    private $password;
 
     public function __construct($array)
     {
@@ -184,25 +189,110 @@ EOF;
         $this->name = $name;
     }
 
-    public function getById($id)
+    /**
+     * @return mixed
+     */
+    public function getFaction()
     {
-        // TODO: Implement getById() method.
+        return $this->faction;
     }
 
-    public function getAll()
+    /**
+     * @param mixed $faction
+     */
+    public function setFaction($faction)
     {
-        // TODO: Implement getAll() method.
+        $this->faction = $faction;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param mixed $login
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoomId()
+    {
+        return $this->room_id;
+    }
+
+    /**
+     * @param mixed $room_id
+     */
+    public function setRoomId($room_id)
+    {
+        $this->room_id = $room_id;
+    }
+
+    public static function getById($id)
+    {
+        $mysql = new Db();
+        $sql = "SELECT u.id, u.login, u.faction, u.player_name, u.room_id, u.state
+            FROM game_users u WHERE u.id = $id";
+        $db_players = $mysql->getFromSelect($sql);
+        $pl = null;
+        if (!empty($db_players))
+            $pl = new Player([
+                'state' => $db_players[0]['state'],
+                'name' => $db_players[0]['player_name'],
+                'ships' => [],
+                'icon' => ''
+            ]);
+        return $pl;
+    }
+
+    public static function getAll()
+    {
+        $mysql = new Db();
+        return ($mysql->getTable('game_users'));
     }
 
     public function addToDb()
     {
-        // TODO: Implement addToDb() method.
+        $db = new Db();
+        if (empty($ret = $db->getTableById('game_users', $this->id))) {
+            $sql =
+"INSERT INTO game_users (login, passwd, faction, room_id, player_name, state)
+ VALUES ({$this->login}, {$this->password}, {$this->faction}, {$this->room_id}, {$this->name}, {$this->state})";
+
+            $db = new Db();
+            $this->id = $db->execute($sql)['id'];
+        }
+        else
+        {
+            $sql = "UPDATE game_users SET 
+                        login = {$this->login}, 
+                        passwd = {$this->password}, 
+                        faction = {$this->faction}, 
+                        room_id = {$this->room_id}, 
+                        player_name = {$this->name}, 
+                        state =  {$this->state})
+                    WHERE id = $this->id";
+            $db = new Db();
+            $db->execute($sql);
+        }
     }
 
-    public function removeFromDb()
+    public static function removeFromDb($id)
     {
-        // TODO: Implement removeFromDb() method.
+        $sql = "DELETE FROM game_users WHERE id = {$id}";
+        $db = new Db();
+        $db->execute($sql);
     }
+
 }
 
 

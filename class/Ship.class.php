@@ -1,7 +1,7 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Weapon.class.php');
-class Ship extends MapObject
+class Ship extends MapObject implements ISelectable
 {
 	private $hull_points;
 	private $direction;
@@ -328,4 +328,68 @@ EOF;
 		}
 	}
 
+    public static function getById($id)
+    {
+        $db = new Db();
+        $db_ship = $db->getTableById('ships', $id)[0];
+        $ship = new Ship($db_ship['name'], ['x' => 0,'y' => 0], ['x' => $db_ship['size_x'], 'y' => $db_ship['size_y']],
+            [
+                'hull_points' => $db_ship['hp'],
+                'PP' => $db_ship['max_pp'],
+                'speed' => $db_ship['speed'],
+                'handling' => $db_ship['handling'],
+                'shield' => $db_ship['shield'],
+                'weapons' => [],
+                'state' => 0
+        ]);
+        return $ship;
+    }
+
+    public static function getAll()
+    {
+        $db = new Db();
+        $db_ship = $db->getTable('ships');
+    }
+
+    public function addToDb()
+    {
+        if (empty($ret = self::getById($this->getId()))) {
+            $sql =
+"INSERT INTO ships(name, size_x, size_y, hp, speed, handling, shield, max_pp)
+ VALUES (
+    {$this->getName()},
+    {$this->getSize()[0]},
+    {$this->getSize()[1]},
+    {$this->getHullPoints()},
+    {$this->getSpeed()},
+    {$this->getHandling()},
+    {$this->getShield()},
+    {$this->getPP()} 
+ )";
+            $db = new Db();
+            $this->setId($db->execute($sql)['id']);
+        }
+        else
+        {
+            $sql = "UPDATE ships SET 
+                        name = '{$this->getName()}', 
+                        size_x = {$this->getSize()[0]}, 
+                        size_y = {$this->getSize()[1]}, 
+                        hp = {$this->getHullPoints()}, 
+                        speed = {$this->getSpeed()}, 
+                        handling = {$this->getHandling()},
+                        shield = {$this->getShield()},
+                        max_pp = {$this->getPP()} 
+                    WHERE id = {$this->getId()}";
+            $db = new Db();
+            $db->execute($sql);
+        }
+    }
+
+    public static function removeFromDb($id)
+    {
+        $sql = "DELETE FROM ships WHERE id = $id";
+        $db = new Db();
+        $db->execute($sql);
+    }
 }

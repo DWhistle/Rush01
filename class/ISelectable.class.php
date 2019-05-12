@@ -3,8 +3,8 @@
 
 interface ISelectable
 {
-    public function getById($id);
-    public function getAll();
+    public static function getById($id);
+    public static function getAll();
     public function addToDb();
-    public function removeFromDb();
+    public static function removeFromDb($id);
 }
