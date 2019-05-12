@@ -1,18 +1,15 @@
 <?php
-	session_start();
-	require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Dice.class.php');
-	class Dice
+session_start();
+require_once($_SERVER['DOCUMENT_ROOT'] . '/class/Dice.class.php');
+class Dice
+{
+	public $last_result;
+	public function Dice()
+	{ }
+
+	public function rollDice()
 	{
-		public $last_result;
-		public function Dice()
-		{
-
-		}
-
-		public function rollDice()
-		{
-			//$last_result = mt_rand(1,6);
-			return 4;
-		}
+		$this->last_result = srand( time() ) % 6 + 1;
+		return $this->last_result;
 	}
-
+}

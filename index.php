@@ -58,7 +58,7 @@ else
 $dice = new Dice();
 if ($_POST['roll'])
 {
-	echo $dice->rollDice();
+	$dice->rollDice();
 }
 
 if (isset($map))
@@ -69,8 +69,8 @@ echo "<form method='post' action='index.php'>
 ";
 
 echo "<form method='post' action='index.php'>";
-echo "<input type='submit' name='roll' value='roll'/>";
-echo "<div style ='width:100%; height:200px p'>". $dice->last_result . "</div>";
+echo "<div><input type='submit' name='roll' value='roll'/></div>";
+echo "<div>".$dice->last_result."</div>";
 echo "</form>";
 
 
@@ -79,9 +79,9 @@ if ($player1 instanceof Player) {
     $ship = $player1->getShips()[0];
     if ($ship instanceof Ship) {
         echo "<input type='hidden' name='ship_id' value='{$ship->getId()}' />";
-        echo "<input type='hidden' name='move_points' value='1' />";
+		echo "<input type='hidden' name='move_points' value='1' />";
         echo "<input type='hidden' name='attack_points' value='1' />";
-        echo "<input type='hidden' name='repair_points' value='1' />";
+		echo "<input type='hidden' name='repair_points' value='1' />";
         switch ($player1->getState()) {
             case "active":
                 echo "<input type='submit' name='action' value='move'/>";
