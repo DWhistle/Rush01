@@ -47,7 +47,8 @@ if ($player instanceof Player) {
 }
 if (isset($player)) {
 	$_SESSION['player'] = serialize($player);
-	$ship = $player->getShips()[0];
+	if (!isset($ship))
+        $ship = $player->getShips()[0];
 	$factory->setShip($ship->getId(), $ship);
 }
 if (isset($factory))

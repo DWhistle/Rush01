@@ -1,6 +1,7 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Weapon.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/weapons/BasicRailgun.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/ISelectable.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Db.class.php');
 
@@ -16,13 +17,12 @@ class Ship extends MapObject implements ISelectable
 	private $state;
 	private $max_hullpoint;
 	private $max_pp;
-
+	private $canRotate;
 
 	public function getMaxHP()
 	{
 		return $this->max_hullpoint;
 	}
-
 
 	public function __construct($name, $top_left, $bottom_right, $args)
 	{
@@ -75,6 +75,18 @@ class Ship extends MapObject implements ISelectable
         return $css;
     }
 
+    public function getButtons()
+    {
+        $buttons = '';
+        if ($this->getCanRotate())
+        {
+            $buttons .= "<button name=\"left\" class=\"button\" onclick='rotateShip(this);  document.location.reload();'>&larr;</button>";
+		    $buttons .= "<button name=\"right\" class=\"button\"  onclick='rotateShip(this); document.location.reload();'>&rarr;</button>";
+		}
+		$buttons .= "<button name=\"forward\" class=\"button\">&uarr;</button>";
+		$buttons .= "<button name=\"kill\" class=\"button\">K</button>";
+		return ($buttons);
+    }
 
 	public function getHtml()
 	{
@@ -89,10 +101,7 @@ class Ship extends MapObject implements ISelectable
 	<div class="left-ship">
 		<img src="/images/ships/{$this->getName()}.png" alt="ship"/>
 		<div class="controls">
-			<button name="left" class="button">&larr;</button>
-			<button name="forward" class="button">&uarr;</button>
-			<button name="right" class="button">&rarr;</button>
-			<button name="kill" class="button">K</button>
+			{$this->getButtons()}
 		</div>
 	</div>
 	<div class="right-ship">
@@ -134,6 +143,38 @@ EOF;
 		$bottom_right1['x'] < $top_left2['x'] ||
 		$top_left1['x'] > $bottom_right2['x']);
 	}
+
+    public function getCss()
+    {
+        return "<meta rel='stylesheet' href='ship-{$this->getName()}.css'>";
+    }
+
+    public function getJs()
+    {
+        $obj_idname  = "#obj-{$this->getName()}";
+        $descr_idname = ".ship#descr-{$this->getName()}";
+
+        $js =  "<script>";
+        $js .= <<<EOF
+function rotateShip(but) {
+  $.post("/actions/ship.php",
+  {
+    action: 'rotate',
+    id: {$this->getId()},
+    side: but.name
+  },
+  function(data, status){
+    console.log(data);
+  });
+}
+EOF;
+        $js .= "$(function() {";
+        $js .= "$('$obj_idname').click( function () { $('$descr_idname').toggle(); });";
+//        $js .= "$('$obj_idname').mouseleave( function () { $('$descr_idname').hide() });";
+        $js .= "});";
+        $js .= "</script>";
+        return ($js);
+    }
 
 	/**
 	 * @return integer
@@ -231,24 +272,6 @@ EOF;
 		$this->weapons = $weapons;
 	}
 
-	public function getCss()
-	{
-		return "<meta rel='stylesheet' href='ship-{$this->getName()}.css'>";
-	}
-
-	public function getJs()
-	{
-		$obj_idname  = "#obj-{$this->getName()}";
-		$descr_idname = ".ship#descr-{$this->getName()}";
-
-		$js =  "<script>";
-		$js .= "$(function() {";
-		$js .= "$('$obj_idname').click( function () { $('$descr_idname').toggle(); });";
-//        $js .= "$('$obj_idname').mouseleave( function () { $('$descr_idname').hide() });";
-		$js .= "});";
-		$js .= "</script>";
-		return ($js);
-	}
 
 	/**
 	 * @return mixed
@@ -293,7 +316,8 @@ EOF;
 		if (!empty($this->weapons)) {
 			foreach ($this->weapons as $weapon) {
 				$name = get_class($weapon);
-				return "<br /><span>{$name}:{$weapon->getCharges()}</span>";
+                if ($weapon instanceof Weapon)
+				    return "<br /><span>{$name}:{$weapon->getCharges()}</span>";
 			}
 		}
 		else
@@ -336,6 +360,7 @@ EOF;
 		$pos = $this->getPos();
 		$pos[0] += intval($num * $this->direction[0]);
 		$pos[1] += intval($num * $this->direction[1]);
+        $this->addCanRotate($num);
 		$this->setPos($pos);
 	}
 
@@ -345,6 +370,7 @@ EOF;
 		$this->direction = [$vec[1], -$vec[0]];
 		$size = $this->getSize();
 		$this->setSize([$size[1], $size[0]]);
+		$this->canRotate = 0;
 	}
 
 	public function rotateRight()
@@ -353,6 +379,7 @@ EOF;
 		$this->direction = [-$vec[1], $vec[0]];
 		$size = $this->getSize();
 		$this->setSize([$size[1], $size[0]]);
+        $this->canRotate = 0;
 	}
 
 	public function repair($num)
@@ -436,5 +463,21 @@ EOF;
     public function getMaxPp()
     {
         return $this->max_pp;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getCanRotate()
+    {
+        return $this->canRotate > $this->handling;
+    }
+
+    /**
+     * @param mixed $canRotate
+     */
+    protected function addCanRotate($canRotate)
+    {
+        $this->canRotate += $canRotate;
     }
 }

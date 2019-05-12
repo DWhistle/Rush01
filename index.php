@@ -54,6 +54,7 @@ else
     if (is_string($_SESSION['other']))
         $player2 = unserialize($_SESSION['other']);
 }
+$player1->draw();
 if (isset($map))
     $map->drawAll();
 echo "<form method='post' action='index.php'>
@@ -79,5 +80,4 @@ if ($player1 instanceof Player) {
     }
     echo "</form>";
 }
-$player1->draw();
 include ('views/template/footer.php');
