@@ -1,6 +1,9 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/MapObject.class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Weapon.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/ISelectable.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Db.class.php');
+
 class Ship extends MapObject implements ISelectable
 {
 	private $hull_points;
