@@ -1,7 +1,8 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/IDrawable.class.php');
-
-class Player implements IDrawable
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/ISelectable.class.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/');
+class Player implements IDrawable, ISelectable
 {
     private $ships = array();
     private $state = false;
@@ -181,6 +182,26 @@ EOF;
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function getById($id)
+    {
+        // TODO: Implement getById() method.
+    }
+
+    public function getAll()
+    {
+        // TODO: Implement getAll() method.
+    }
+
+    public function addToDb()
+    {
+        // TODO: Implement addToDb() method.
+    }
+
+    public function removeFromDb()
+    {
+        // TODO: Implement removeFromDb() method.
     }
 }
 
