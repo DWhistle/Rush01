@@ -132,6 +132,28 @@ EOF;
 
     }
 
+
+    public function attack($num, $enemy, $move_points, $attack_points, $repair_point)
+    {
+        // $curr_ship = null;
+		//print($num . $enemy);
+        // foreach ($this->ships as $ship) {
+        //     if ($ship->getId() == $num) {
+        //         $curr_ship = $ship;
+        //         break;
+        //     }
+        // }
+        // if ($curr_ship instanceof Ship) {
+        //     if ($move_points + $attack_points + $repair_point == $curr_ship->getPP()) {
+        //         $curr_ship->move($move_points);
+        //         //$curr_ship->attack($attack_points);
+        //         $curr_ship->repair($repair_point);
+        //     }
+        // }
+        // return (0);
+
+    }
+
     public function finish()
     {
         foreach ($this->ships as $ship) {

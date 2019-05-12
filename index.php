@@ -8,15 +8,15 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/class/Dice.class.php');
 include ('views/template/header.php');
 if ($_POST['game'] == 'new' || (!$_SESSION['game'])) {
     $map = new FactoryObj(0, 0, 150, 100);
-    $ship1 = new Ship('ship1', ['x' => 0, 'y' => 0], ['x' => 2, 'y' => 1], [
+    $ship1 = new Ship('ship1', ['x' => 2, 'y' => 10], ['x' => 5, 'y' => 15], [
         'speed' => 1,
         'hull_points' => 10,
         'PP' => 3,
         'handling' => 1,
         'shield' => 1,
         'weapns' => []
-        ]);
-    $ship2 = new Ship('ship2', ['x' => 10, 'y' => 10], ['x' => 13, 'y' => 15], [
+		]);
+    $ship2 = new Ship('ship2', ['x' => 2, 'y' => 2], ['x' => 5, 'y' => 7], [
         'speed' => 1,
         'hull_points' => 10,
         'PP' => 3,
@@ -73,13 +73,21 @@ echo "<div><input type='submit' name='roll' value='roll'/></div>";
 echo "<div>".$dice->last_result."</div>";
 echo "</form>";
 
+if ($_POST['boop_them'])
+{
+	$player1->getShips()[0]->test($map, 5);
+}
 
+echo "<form method='post' action='index.php'>";
+echo "<input type='submit' name='boop_them' value='boop'/>";
+echo "</form>";
 if ($player1 instanceof Player) {
     echo "<form method='post' action='/actions/player.php'>";
     $ship = $player1->getShips()[0];
     if ($ship instanceof Ship) {
         echo "<input type='hidden' name='ship_id' value='{$ship->getId()}' />";
 		echo "<input type='hidden' name='move_points' value='1' />";
+		echo "<input type='hidden' name='enemy_ship' value='{$ship->getId()}' />";
         echo "<input type='hidden' name='attack_points' value='1' />";
 		echo "<input type='hidden' name='repair_points' value='1' />";
         switch ($player1->getState()) {
@@ -88,6 +96,9 @@ if ($player1 instanceof Player) {
                 break;
             case "move":
                 echo "<input type='submit' name='action' value='finish'/>";
+				break;
+			case "attack":
+                echo "<input type='submit' name='action' value='attack'/>";
                 break;
             case "finish":
                 echo "<input type='submit' name='action' value='active'/>";

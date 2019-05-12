@@ -9,7 +9,7 @@ class Dice
 
 	public function rollDice()
 	{
-		$this->last_result = srand( time() ) % 6 + 1;
+		$this->last_result = mt_rand(1, 6); //rand( time() );
 		return $this->last_result;
 	}
 }

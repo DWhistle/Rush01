@@ -293,7 +293,22 @@ EOF;
             }
         }
     }
-
+	public function test ($factory, $pp)
+	{
+		foreach ($this->weapons as $weapon) {
+            if ($weapon instanceof Weapon) {
+                $charges = $weapon->getCharges();
+				if ($charges > 0)
+				{
+                    foreach ($factory->findInRange($weapon) as $enemy) {
+						//print_r($enemy);
+                        $weapon->setCharges($charges - 1);
+                        $this->attack_ship($enemy, $pp);
+					}
+				}
+            }
+        }
+	}
     public function move($num)
     {
 		//echo $this->getPos();
