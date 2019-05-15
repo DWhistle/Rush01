@@ -9,6 +9,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/class/Player.class.php');
     $player_id = $_SESSION['id'];
     $id = $_POST["id"];
     $cell = $_POST["cell"];
-	if (isset($id, $login_id))
-	    $mysqli->query("UPDATE `rooms` SET `$cell` = {$player_id} WHERE id = $id;");
+	$mysqli->query("UPDATE `rooms` SET `$cell`= {$player_id} WHERE id = $id;");
+    $_SESSION['room'] = $id;
 	header("Location: /index.php");
+	exit();

@@ -14,6 +14,7 @@ if ($res = $mysqli->query("SELECT * FROM `rooms` ORDER BY `id` ")) {
 		</tr>";
     echo $_SESSION['id'];
 
+
 	while ($d = $res->fetch_array())
 	{
         $s .= "<tr>";
@@ -45,15 +46,20 @@ if ($res = $mysqli->query("SELECT * FROM `rooms` ORDER BY `id` ")) {
             }
         }
 		$s.= "</tr>";
-	}
-    if ($_SESSION['id'] == $d["player4"] || $_SESSION['id'] == $d["player1"] || $_SESSION['id'] == $d["player2"] || $_SESSION['id'] == $d["player3"]){
-        $s.="<tr>
+        if ($_SESSION['id'] == $d["player4"]
+            || $_SESSION['id'] == $d["player1"]
+            || $_SESSION['id'] == $d["player2"]
+            || $_SESSION['id'] == $d["player3"])
+        {
+            $s.="<tr>
 				<td colspan =\"5\">
 				<form onsubmit=\"javascript:delroom();\">
 				<input type=\"submit\" value=\"New game\">
 				</form></td>
 			</tr>";
-    }
+        }
+	}
+
     $s.= "</table>";
     echo $s;
 }

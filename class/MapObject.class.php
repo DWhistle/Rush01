@@ -19,8 +19,6 @@ abstract class MapObject implements IDrawable
      */
     private $_pos;
 
-
-
     public function __construct()
     {
         $this->_id = ++self::$_obj_count;
